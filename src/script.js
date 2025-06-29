@@ -7,8 +7,10 @@ const emailIndicator = document.getElementById('email-indicator');
 const passwordIndicator = document.getElementById('password-indicator');
 
 // Authentication credentials
-const VALID_EMAIL = 'ayhtas777@gmail.com';
-const VALID_PASSWORD = 'cap@1920';
+const VALID_USERS = [
+  { email: 'ayhtas777@gmail.com', password: 'cap@1920' },
+  { email: 'perarasu1012@gmail.com', password: 'karthi@2005' }
+];
 
 // Form validation and visual feedback
 class AccessibilityForm {
@@ -228,8 +230,9 @@ class AccessibilityForm {
             return;
         }
 
-        // Check authentication
-        if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+        // Check authentication for any valid user
+        const isAuthenticated = VALID_USERS.some(user => user.email === email && user.password === password);
+        if (isAuthenticated) {
             // Show loading state
             this.showLoadingState();
             
