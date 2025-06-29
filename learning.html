@@ -132,21 +132,30 @@
         .feedback.incorrect {
             color: #ff0080;
         }
+        .wide-learning {
+            max-width: 1400px;
+            padding: 40px 40px 32px 40px;
+        }
+        .wide-lessons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        .lesson-card {
+            min-width: 0;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="dashboard.html" class="back-dashboard"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
-        <div class="learning-container">
+        <a href="dashboard.html" class="back-dashboard unique-back"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        <div class="learning-container wide-learning">
             <div class="learning-header">
-                <img src="src/logo.png" alt="Linguosign Logo">
                 <h2>Learning Module</h2>
             </div>
-            <div class="lessons-list" id="lessonsList">
+            <div class="lessons-list wide-lessons" id="lessonsList">
                 <!-- Lessons will be rendered here -->
-            </div>
-            <div class="interactive-area" id="interactiveArea">
-                <span>Select a lesson to begin.</span>
             </div>
         </div>
     </div>
@@ -193,44 +202,16 @@
 
         // Render lessons
         const lessonsList = document.getElementById('lessonsList');
-        const interactiveArea = document.getElementById('interactiveArea');
 
-        lessons.forEach((lesson, idx) => {
+        lessons.forEach((lesson) => {
             const card = document.createElement('div');
             card.className = 'lesson-card';
             card.innerHTML = `
                 <div class="lesson-title">${lesson.title}</div>
                 <div class="lesson-desc">${lesson.desc}</div>
             `;
-            card.addEventListener('click', () => {
-                document.querySelectorAll('.lesson-card').forEach(c => c.classList.remove('active'));
-                card.classList.add('active');
-                showInteractive(idx);
-            });
             lessonsList.appendChild(card);
         });
-
-        function showInteractive(idx) {
-            const lesson = lessons[idx];
-            interactiveArea.innerHTML = `
-                <div class="question">${lesson.interactive.question}</div>
-                <input class="answer-input" id="answerInput" placeholder="Type your answer...">
-                <button class="check-btn" id="checkBtn">Check Answer</button>
-                <div class="feedback" id="feedback"></div>
-            `;
-            document.getElementById('checkBtn').onclick = function() {
-                const userAnswer = document.getElementById('answerInput').value.trim().toLowerCase();
-                const correct = userAnswer === lesson.interactive.answer;
-                const feedback = document.getElementById('feedback');
-                if (correct) {
-                    feedback.textContent = 'Correct! Great job!';
-                    feedback.className = 'feedback correct';
-                } else {
-                    feedback.textContent = 'Try again!';
-                    feedback.className = 'feedback incorrect';
-                }
-            };
-        }
     </script>
 </body>
 </html> 
