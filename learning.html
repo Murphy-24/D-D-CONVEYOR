@@ -234,16 +234,23 @@
         const lessonsList = document.getElementById('lessonsList');
 
         lessons.forEach((lesson, idx) => {
-            const card = document.createElement('div');
-            card.className = 'lesson-card';
-            card.innerHTML = `
-                <div class="lesson-title">${lesson.title}</div>
-                <div class="lesson-desc">${lesson.desc}</div>
-            `;
-            if (idx === 0) { // Alphabet (A-Z)
-                card.addEventListener('click', () => {
-                    showAlphabetSigns();
-                });
+            let card;
+            if (idx === 0) {
+                card = document.createElement('a');
+                card.href = 'alphabet.html';
+                card.className = 'lesson-card';
+                card.style.textDecoration = 'none';
+                card.innerHTML = `
+                    <div class=\"lesson-title\">${lesson.title}</div>
+                    <div class=\"lesson-desc\">${lesson.desc}</div>
+                `;
+            } else {
+                card = document.createElement('div');
+                card.className = 'lesson-card';
+                card.innerHTML = `
+                    <div class=\"lesson-title\">${lesson.title}</div>
+                    <div class=\"lesson-desc\">${lesson.desc}</div>
+                `;
             }
             lessonsList.appendChild(card);
         });
