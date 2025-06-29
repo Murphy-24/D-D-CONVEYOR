@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D CONVEYOR </title>
+    <link rel="stylesheet" href="src/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-hands"></i>
+                    <h1>D&D CONVEYOR</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        Dashboard
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        Profile
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </a>
+                    <a href="index.html" class="nav-link logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-card">
+                    <div class="welcome-content">
+                        <h2>Welcome back, User!</h2>
+                        <p>Choose your communication method or start learning sign language</p>
+                        <div class="stats">
+                            <div class="stat">
+                                <span class="stat-number">24</span>
+                                <span class="stat-label">Sessions</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">156</span>
+                                <span class="stat-label">Signs Learned</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">89%</span>
+                                <span class="stat-label">Accuracy</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="welcome-illustration">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Features Grid -->
+            <section class="features-section">
+                <h3 class="section-title">Communication Tools</h3>
+                <div class="features-grid">
+                    <!-- Sign to Text -->
+                    <div class="feature-card sign-to-text">
+                        <div class="feature-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Sign to Text</h4>
+                            <p>Use your camera to translate sign language into text in real-time</p>
+                            <div class="feature-stats">
+                                <span><i class="fas fa-clock"></i> Real-time</span>
+                                <span><i class="fas fa-language"></i> 95% Accuracy</span>
+                            </div>
+                        </div>
+                        <button class="feature-btn" onclick="openSignToText()">
+                            <span>Start</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <div class="feature-overlay"></div>
+                    </div>
+
+                    <!-- Text to Sign -->
+                    <div class="feature-card text-to-sign">
+                        <div class="feature-icon">
+                            <i class="fas fa-keyboard"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Text to Sign</h4>
+                            <p>Convert your text messages into animated sign language demonstrations</p>
+                            <div class="feature-stats">
+                                <span><i class="fas fa-bolt"></i> Instant</span>
+                                <span><i class="fas fa-hands"></i> 3D Animation</span>
+                            </div>
+                        </div>
+                        <button class="feature-btn" onclick="openTextToSign()">
+                            <span>Start</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <div class="feature-overlay"></div>
+                    </div>
+
+                    <!-- Learning Module -->
+                    <div class="feature-card learning-module">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Learning Module</h4>
+                            <p>Interactive lessons and practice sessions to master sign language</p>
+                            <div class="feature-stats">
+                                <span><i class="fas fa-book"></i> 50+ Lessons</span>
+                                <span><i class="fas fa-star"></i> Beginner to Advanced</span>
+                            </div>
+                        </div>
+                        <button class="feature-btn" onclick="openLearningModule()">
+                            <span>Start</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <div class="feature-overlay"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <h3 class="section-title">Quick Actions</h3>
+                <div class="actions-grid">
+                    <button class="action-btn">
+                        <i class="fas fa-history"></i>
+                        <span>Recent Sessions</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Progress Report</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-users"></i>
+                        <span>Community</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help & Support</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="recent-activity">
+                <h3 class="section-title">Recent Activity</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h5>Sign to Text Session</h5>
+                            <p>Translated 15 signs with 92% accuracy</p>
+                            <span class="activity-time">2 hours ago</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h5>Completed Lesson 12</h5>
+                            <p>Family & Relationships vocabulary</p>
+                            <span class="activity-time">1 day ago</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-keyboard"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h5>Text to Sign Practice</h5>
+                            <p>Converted 8 sentences to signs</p>
+                            <span class="activity-time">2 days ago</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="background-elements">
+        <!-- Geometric shapes -->
+        <div class="geometric-shape shape-1"></div>
+        <div class="geometric-shape shape-2"></div>
+        <div class="geometric-shape shape-3"></div>
+        <div class="geometric-shape shape-4"></div>
+        
+        <!-- Floating particles -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        
+        <!-- Circuit lines -->
+        <div class="circuit-line"></div>
+        <div class="circuit-line"></div>
+        <div class="circuit-line"></div>
+        <div class="circuit-line"></div>
+    </div>
+
+    <script src="src/dashboard.js"></script>
+</body>
+</html> 
