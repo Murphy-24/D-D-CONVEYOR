@@ -145,6 +145,36 @@
         .lesson-card {
             min-width: 0;
         }
+        .sign-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-top: 32px;
+        }
+        .sign-card {
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-width: 160px;
+            max-width: 180px;
+        }
+        .sign-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff;
+            margin-bottom: 12px;
+        }
+        .sign-label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #00d4ff;
+        }
     </style>
 </head>
 <body>
@@ -203,15 +233,41 @@
         // Render lessons
         const lessonsList = document.getElementById('lessonsList');
 
-        lessons.forEach((lesson) => {
+        lessons.forEach((lesson, idx) => {
             const card = document.createElement('div');
             card.className = 'lesson-card';
             card.innerHTML = `
                 <div class="lesson-title">${lesson.title}</div>
                 <div class="lesson-desc">${lesson.desc}</div>
             `;
+            if (idx === 0) { // Alphabet (A-Z)
+                card.addEventListener('click', () => {
+                    showAlphabetSigns();
+                });
+            }
             lessonsList.appendChild(card);
         });
+
+        function showAlphabetSigns() {
+            // Remove any existing sign grid
+            let oldGrid = document.querySelector('.sign-grid');
+            if (oldGrid) oldGrid.remove();
+
+            // Create grid
+            const grid = document.createElement('div');
+            grid.className = 'sign-grid';
+
+            // Only show A for now
+            const signCard = document.createElement('div');
+            signCard.className = 'sign-card';
+            signCard.innerHTML = `
+                <img src="src/isl/A.jpg" alt="ISL Sign for A">
+                <div class="sign-label">A</div>
+            `;
+            grid.appendChild(signCard);
+
+            document.querySelector('.learning-container').appendChild(grid);
+        }
     </script>
 </body>
 </html> 
