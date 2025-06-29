@@ -69,17 +69,18 @@ function setupNavigation() {
     
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Remove active class from all links
-            navLinks.forEach(l => l.classList.remove('active'));
-            
-            // Add active class to clicked link
-            link.classList.add('active');
-            
-            // Show notification for now (in a real app, this would navigate to different sections)
-            const pageName = link.textContent.trim();
-            showNotification(`${pageName} page coming soon!`, 'info');
+            // Only prevent default and show notification for #
+            if (link.getAttribute('href') === '#') {
+                e.preventDefault();
+                // Remove active class from all links
+                navLinks.forEach(l => l.classList.remove('active'));
+                // Add active class to clicked link
+                link.classList.add('active');
+                // Show notification for now (in a real app, this would navigate to different sections)
+                const pageName = link.textContent.trim();
+                showNotification(`${pageName} page coming soon!`, 'info');
+            }
+            // Otherwise, let the browser navigate normally
         });
     });
 }
