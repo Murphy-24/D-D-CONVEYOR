@@ -202,7 +202,7 @@
             },
             {
                 title: 'Common Signs',
-                desc: 'Learn the most frequently used signs in daily communication.'
+                desc: 'Phrases for daily conversation'
             },
             {
                 title: 'Family & Relationships',
@@ -227,6 +227,15 @@
             } else if (idx === 1) {
                 card = document.createElement('a');
                 card.href = 'numbers.html';
+                card.className = 'lesson-card';
+                card.style.textDecoration = 'none';
+                card.innerHTML = `
+                    <div class=\"lesson-title\">${lesson.title}</div>
+                    <div class=\"lesson-desc\">${lesson.desc}</div>
+                `;
+            } else if (idx === 2) {
+                card = document.createElement('a');
+                card.href = 'common-signs.html';
                 card.className = 'lesson-card';
                 card.style.textDecoration = 'none';
                 card.innerHTML = `
