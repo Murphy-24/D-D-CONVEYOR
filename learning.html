@@ -194,39 +194,19 @@
         const lessons = [
             {
                 title: 'Alphabet (A-Z)',
-                desc: 'Learn the sign language alphabet from A to Z.',
-                interactive: {
-                    question: 'What is the sign for the letter "A"? (Type "fist" to answer)',
-                    answer: 'fist',
-                    image: '',
-                }
+                desc: 'Learn the sign language alphabet from A to Z.'
             },
             {
-                title: 'Greetings',
-                desc: 'Common greetings and introductions in sign language.',
-                interactive: {
-                    question: 'How do you sign "Hello"? (Type "wave" to answer)',
-                    answer: 'wave',
-                    image: '',
-                }
+                title: 'Numbers 1-9',
+                desc: 'Learn to sign numbers from 1 to 9.'
             },
             {
-                title: 'Numbers 1-10',
-                desc: 'Learn to sign numbers from 1 to 10.',
-                interactive: {
-                    question: 'What is the sign for the number "1"? (Type "index finger" to answer)',
-                    answer: 'index finger',
-                    image: '',
-                }
+                title: 'Common Signs',
+                desc: 'Learn the most frequently used signs in daily communication.'
             },
             {
                 title: 'Family & Relationships',
-                desc: 'Signs for family members and relationships.',
-                interactive: {
-                    question: 'How do you sign "Mother"? (Type "chin open hand" to answer)',
-                    answer: 'chin open hand',
-                    image: '',
-                }
+                desc: 'Signs for family members and relationships.'
             }
         ];
 
@@ -244,7 +224,7 @@
                     <div class=\"lesson-title\">${lesson.title}</div>
                     <div class=\"lesson-desc\">${lesson.desc}</div>
                 `;
-            } else if (idx === 2) {
+            } else if (idx === 1) {
                 card = document.createElement('a');
                 card.href = 'numbers.html';
                 card.className = 'lesson-card';
