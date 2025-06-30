@@ -215,41 +215,28 @@
 
         lessons.forEach((lesson, idx) => {
             let card;
+            card = document.createElement('div');
+            card.className = 'lesson-card';
+            card.innerHTML = `
+                <div class=\"lesson-title\">${lesson.title}</div>
+                <div class=\"lesson-desc\">${lesson.desc}</div>
+            `;
+            
+            // Add click event listeners for navigation
             if (idx === 0) {
-                card = document.createElement('a');
-                card.href = 'alphabet.html';
-                card.className = 'lesson-card';
-                card.style.textDecoration = 'none';
-                card.innerHTML = `
-                    <div class=\"lesson-title\">${lesson.title}</div>
-                    <div class=\"lesson-desc\">${lesson.desc}</div>
-                `;
+                card.addEventListener('click', () => {
+                    window.location.href = 'alphabet.html';
+                });
             } else if (idx === 1) {
-                card = document.createElement('a');
-                card.href = 'numbers.html';
-                card.className = 'lesson-card';
-                card.style.textDecoration = 'none';
-                card.innerHTML = `
-                    <div class=\"lesson-title\">${lesson.title}</div>
-                    <div class=\"lesson-desc\">${lesson.desc}</div>
-                `;
+                card.addEventListener('click', () => {
+                    window.location.href = 'numbers.html';
+                });
             } else if (idx === 2) {
-                card = document.createElement('a');
-                card.href = 'common-signs.html';
-                card.className = 'lesson-card';
-                card.style.textDecoration = 'none';
-                card.innerHTML = `
-                    <div class=\"lesson-title\">${lesson.title}</div>
-                    <div class=\"lesson-desc\">${lesson.desc}</div>
-                `;
-            } else {
-                card = document.createElement('div');
-                card.className = 'lesson-card';
-                card.innerHTML = `
-                    <div class=\"lesson-title\">${lesson.title}</div>
-                    <div class=\"lesson-desc\">${lesson.desc}</div>
-                `;
+                card.addEventListener('click', () => {
+                    window.location.href = 'common-signs.html';
+                });
             }
+            
             lessonsList.appendChild(card);
         });
 
