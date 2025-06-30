@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linguosign - ISL Alphabet</title>
+    <title>Linguosign - ISL Numbers</title>
     <link rel="icon" type="image/png" href="src/logo.png">
     <link rel="stylesheet" href="src/dashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .alphabet-container {
+        .numbers-container {
             max-width: 1200px;
             margin: 60px auto 0 auto;
             background: rgba(15, 15, 35, 0.85);
@@ -19,13 +19,13 @@
             position: relative;
             z-index: 1;
         }
-        .alphabet-header {
+        .numbers-header {
             display: flex;
             align-items: center;
             gap: 20px;
             margin-bottom: 30px;
         }
-        .alphabet-header h2 {
+        .numbers-header h2 {
             font-size: 2rem;
             font-weight: 700;
             background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
@@ -80,22 +80,21 @@
 <body>
     <div class="container">
         <a href="learning.html" class="back-learning"><i class="fas fa-arrow-left"></i> Back to Learning Module</a>
-        <div class="alphabet-container">
-            <div class="alphabet-header">
-                <h2>ISL Alphabet (A-Z)</h2>
+        <div class="numbers-container">
+            <div class="numbers-header">
+                <h2>ISL Numbers (0-9)</h2>
             </div>
             <div class="sign-grid">
-                <!-- A-Z grid -->
+                <!-- 0-9 grid -->
                 <script>
-                const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-                alphabet.forEach(letter => {
+                for (let i = 0; i <= 9; i++) {
                     document.write(`
                         <div class='sign-card'>
-                            <img src='src/isl/${letter}.jpg' alt='ISL Sign for ${letter}' onerror="this.src='https://via.placeholder.com/100x100?text=${letter}'">
-                            <div class='sign-label'>${letter}</div>
+                            <img src='src/isl/${i}.jpg' alt='ISL Sign for ${i}' onerror="this.src='https://via.placeholder.com/100x100?text=${i}'">
+                            <div class='sign-label'>${i}</div>
                         </div>
                     `);
-                });
+                }
                 </script>
             </div>
         </div>

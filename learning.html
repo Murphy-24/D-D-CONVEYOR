@@ -244,6 +244,15 @@
                     <div class=\"lesson-title\">${lesson.title}</div>
                     <div class=\"lesson-desc\">${lesson.desc}</div>
                 `;
+            } else if (idx === 2) {
+                card = document.createElement('a');
+                card.href = 'numbers.html';
+                card.className = 'lesson-card';
+                card.style.textDecoration = 'none';
+                card.innerHTML = `
+                    <div class=\"lesson-title\">${lesson.title}</div>
+                    <div class=\"lesson-desc\">${lesson.desc}</div>
+                `;
             } else {
                 card = document.createElement('div');
                 card.className = 'lesson-card';
