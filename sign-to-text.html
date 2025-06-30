@@ -102,19 +102,48 @@
         .upload-input {
             display: none;
         }
+        .upload-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 32px 20px 24px 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+        .upload-heading {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         .upload-label {
-            display: inline-block;
-            padding: 10px 22px;
-            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 10px;
             background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
             color: #fff;
             font-weight: 600;
+            font-size: 1.1rem;
             cursor: pointer;
             margin-top: 10px;
-            transition: background 0.2s;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 16px rgba(0,212,255,0.10);
+            transition: background 0.2s, transform 0.2s;
         }
         .upload-label:hover {
             background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .upload-label i {
+            font-size: 1.3rem;
         }
         .video-preview, .image-preview {
             margin: 12px auto 0 auto;
@@ -185,10 +214,14 @@
             uploadOption.classList.add('active');
             webcamOption.classList.remove('active');
             inputArea.innerHTML = `
-                <label class='upload-label'>Upload Image/Video
-                    <input type='file' class='upload-input' accept='image/*,video/*' onchange='showPreview(event)'>
-                </label>
-                <div id='previewArea'></div>
+                <div class='upload-section'>
+                    <div class='upload-heading'><i class='fas fa-upload'></i> Upload a Sign Image or Video</div>
+                    <label class='upload-label'>
+                        <i class='fas fa-file-upload'></i> Upload Image/Video
+                        <input type='file' class='upload-input' accept='image/*,video/*' onchange='showPreview(event)'>
+                    </label>
+                    <div id='previewArea'></div>
+                </div>
                 <div class='placeholder-area'>Recognition coming soon!</div>
             `;
             resultArea.style.display = 'none';
