@@ -106,11 +106,7 @@ function setupFeatureButtons() {
     };
     
     window.openTextToSign = () => {
-        showNotification('Opening Text to Sign module...', 'info');
-        // In a real app, this would open the text input interface
-        setTimeout(() => {
-            showNotification('Text to Sign converter ready!', 'success');
-        }, 1000);
+        window.location.href = 'text-to-sign.html';
     };
     
     window.openLearningModule = () => {

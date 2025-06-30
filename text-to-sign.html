@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Sign - Linguosign</title>
+    <link rel="stylesheet" href="src/dashboard.css">
+    <link rel="icon" type="image/png" href="src/logo.png">
+    <style>
+        .main-text2sign {
+            max-width: 700px;
+            margin: 48px auto;
+            background: rgba(15, 15, 35, 0.85);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 40px 32px 32px 32px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            background: rgba(15, 15, 35, 0.9);
+            padding: 18px 24px;
+            border-radius: 18px;
+        }
+        .header img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .header-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #ff0080;
+        }
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        .text-input {
+            width: 100%;
+            max-width: 420px;
+            padding: 16px 14px;
+            border-radius: 10px;
+            border: none;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.08);
+            color: #e0e0e0;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+        .convert-btn {
+            padding: 12px 32px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,212,255,0.10);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .convert-btn:hover {
+            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .output-section {
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 32px 20px;
+            min-height: 180px;
+            color: #a0a0a0;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .placeholder-3d {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #23234a 60%, #00d4ff 100%);
+            border-radius: 50%;
+            margin: 0 auto 12px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            box-shadow: 0 4px 24px rgba(0,212,255,0.10);
+        }
+        @media (max-width: 600px) {
+            .main-text2sign { padding: 12px; }
+            .header-title { font-size: 1.3rem; }
+            .header { padding: 10px 8px; }
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/1c2e0b1b7a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="src/logo.png" alt="Linguosign Logo">
+            <span class="header-title">Linguosign – Text to Sign</span>
+        </div>
+        <a href="dashboard.html" class="back-link">&larr; Back to Dashboard</a>
+        <div class="main-text2sign">
+            <div class="input-section">
+                <textarea class="text-input" id="textInput" rows="3" placeholder="Type your message here..."></textarea>
+                <button class="convert-btn" onclick="convertTextToSign()"><i class="fas fa-sign-language"></i> Convert</button>
+            </div>
+            <div class="output-section" id="outputSection">
+                <div class="placeholder-3d"><i class="fas fa-user"></i></div>
+                <div id="signOutput">3D animated sign output will appear here.<br><span style='font-size:0.95rem; color:#666;'>(Feature coming soon!)</span></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function convertTextToSign() {
+            const text = document.getElementById('textInput').value.trim();
+            const signOutput = document.getElementById('signOutput');
+            if (!text) {
+                signOutput.innerHTML = "Please enter some text to convert.";
+                return;
+            }
+            // Placeholder: Simulate conversion
+            signOutput.innerHTML = `<b>Input:</b> ${text}<br><br><span style='color:#00d4ff;'>[3D Sign Animation Placeholder]</span>`;
+        }
+    </script>
+</body>
+</html> 
