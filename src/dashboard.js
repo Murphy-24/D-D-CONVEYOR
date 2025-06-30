@@ -102,11 +102,7 @@ function setupActionButtons() {
 function setupFeatureButtons() {
     // These functions will be called by the onclick handlers in HTML
     window.openSignToText = () => {
-        showNotification('Opening Sign to Text module...', 'info');
-        // In a real app, this would open the camera interface
-        setTimeout(() => {
-            showNotification('Camera access required for Sign to Text feature', 'info');
-        }, 1000);
+        window.location.href = 'sign-to-text.html';
     };
     
     window.openTextToSign = () => {

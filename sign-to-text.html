@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign to Text - Linguosign</title>
+    <link rel="stylesheet" href="src/dashboard.css">
+    <link rel="icon" type="image/png" href="src/logo.png">
+    <style>
+        .main-sign2text {
+            max-width: 700px;
+            margin: 48px auto;
+            background: rgba(15, 15, 35, 0.85);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 40px 32px 32px 32px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            background: rgba(15, 15, 35, 0.9);
+            padding: 18px 24px;
+            border-radius: 18px;
+        }
+        .header img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .header-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #ff0080;
+        }
+        .options {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        .option-card {
+            flex: 1 1 240px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+        }
+        .option-card:hover, .option-card.active {
+            border-color: #00d4ff;
+            box-shadow: 0 4px 16px rgba(0,212,255,0.08);
+            transform: translateY(-4px) scale(1.03);
+        }
+        .option-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            color: #00d4ff;
+        }
+        .option-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin-bottom: 6px;
+        }
+        .option-desc {
+            color: #a0a0a0;
+            font-size: 0.98rem;
+            text-align: center;
+        }
+        .placeholder-area {
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 32px 20px;
+            min-height: 120px;
+            color: #a0a0a0;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        .upload-input {
+            display: none;
+        }
+        .upload-label {
+            display: inline-block;
+            padding: 10px 22px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        .upload-label:hover {
+            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
+        }
+        .video-preview, .image-preview {
+            margin: 12px auto 0 auto;
+            display: block;
+            max-width: 320px;
+            max-height: 200px;
+            border-radius: 12px;
+            background: #23234a;
+        }
+        @media (max-width: 600px) {
+            .main-sign2text { padding: 12px; }
+            .header-title { font-size: 1.3rem; }
+            .header { padding: 10px 8px; }
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/1c2e0b1b7a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="src/logo.png" alt="Linguosign Logo">
+            <span class="header-title">Linguosign – Sign to Text</span>
+        </div>
+        <a href="dashboard.html" class="back-link">&larr; Back to Dashboard</a>
+        <div class="main-sign2text">
+            <div class="options">
+                <div class="option-card" id="webcamOption">
+                    <div class="option-icon"><i class="fas fa-video"></i></div>
+                    <div class="option-title">Use Webcam</div>
+                    <div class="option-desc">Capture live sign input using your webcam.</div>
+                </div>
+                <div class="option-card" id="uploadOption">
+                    <div class="option-icon"><i class="fas fa-upload"></i></div>
+                    <div class="option-title">Upload Image/Video</div>
+                    <div class="option-desc">Upload a photo or video of a sign for recognition.</div>
+                </div>
+            </div>
+            <div id="inputArea">
+                <div class="placeholder-area" id="placeholderArea">
+                    Select an option above to get started.<br>
+                    <span style="font-size:0.95rem; color:#666;">(Recognition coming soon!)</span>
+                </div>
+            </div>
+            <div id="resultArea" class="placeholder-area" style="display:none;">
+                <b>Recognized Text:</b> <span id="recognizedText">(Result will appear here)</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Option switching logic
+        const webcamOption = document.getElementById('webcamOption');
+        const uploadOption = document.getElementById('uploadOption');
+        const inputArea = document.getElementById('inputArea');
+        const placeholderArea = document.getElementById('placeholderArea');
+        const resultArea = document.getElementById('resultArea');
+        const recognizedText = document.getElementById('recognizedText');
+
+        webcamOption.addEventListener('click', () => {
+            webcamOption.classList.add('active');
+            uploadOption.classList.remove('active');
+            inputArea.innerHTML = `<div class='placeholder-area'>
+                <b>Webcam input coming soon!</b><br>
+                (This will allow you to use your webcam to recognize signs.)
+            </div>`;
+            resultArea.style.display = 'none';
+        });
+        uploadOption.addEventListener('click', () => {
+            uploadOption.classList.add('active');
+            webcamOption.classList.remove('active');
+            inputArea.innerHTML = `
+                <label class='upload-label'>Upload Image/Video
+                    <input type='file' class='upload-input' accept='image/*,video/*' onchange='showPreview(event)'>
+                </label>
+                <div id='previewArea'></div>
+                <div class='placeholder-area'>Recognition coming soon!</div>
+            `;
+            resultArea.style.display = 'none';
+        });
+        // Preview logic for upload
+        window.showPreview = function(event) {
+            const file = event.target.files[0];
+            const previewArea = document.getElementById('previewArea');
+            if (!file) return;
+            if (file.type.startsWith('image/')) {
+                previewArea.innerHTML = `<img src='${URL.createObjectURL(file)}' class='image-preview'>`;
+            } else if (file.type.startsWith('video/')) {
+                previewArea.innerHTML = `<video src='${URL.createObjectURL(file)}' class='video-preview' controls></video>`;
+            } else {
+                previewArea.innerHTML = `<div style='color:#ff0080;'>Unsupported file type.</div>`;
+            }
+        }
+    </script>
+</body>
+</html> 
