@@ -7,63 +7,22 @@
     <link rel="stylesheet" href="src/dashboard.css">
     <link rel="icon" type="image/png" href="src/logo.png">
     <style>
-        body {
-            background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: rgba(255,255,255,0.7);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-            padding: 32px 24px 24px 24px;
-        }
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-        .header img {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .header-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #2d3748;
-        }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 24px;
-            color: #6366f1;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: color 0.2s;
-        }
-        .back-link:hover {
-            color: #4338ca;
-        }
         .signs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 32px;
+            margin-top: 32px;
         }
         .sign-card {
-            background: rgba(255,255,255,0.9);
+            background: rgba(15, 15, 35, 0.8);
             border-radius: 18px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
             padding: 24px 16px 16px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             transition: box-shadow 0.2s;
+            color: #e0e0e0;
         }
         .sign-card:hover {
             box-shadow: 0 4px 16px rgba(99,102,241,0.12);
@@ -72,13 +31,13 @@
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 12px;
-            color: #374151;
+            color: #e0e0e0;
             text-align: center;
         }
         .sign-media {
             width: 120px;
             height: 120px;
-            background: #e0e7ff;
+            background: #23234a;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -93,12 +52,47 @@
         }
         .sign-desc {
             font-size: 1rem;
-            color: #4b5563;
+            color: #a0a0a0;
             text-align: center;
         }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            background: rgba(15, 15, 35, 0.9);
+            padding: 18px 24px;
+            border-radius: 18px;
+        }
+        .header img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .header-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #ff0080;
+        }
         @media (max-width: 600px) {
-            .container { padding: 12px; }
             .header-title { font-size: 1.3rem; }
+            .header { padding: 10px 8px; }
         }
     </style>
 </head>
@@ -113,7 +107,6 @@
             <div class="sign-card">
                 <div class="sign-title">How are you?</div>
                 <div class="sign-media">
-                    <!-- Replace with image or video -->
                     <img src="src/isl/how-are-you.jpg" alt="How are you sign" onerror="this.src='src/isl/placeholder.jpg'">
                 </div>
                 <div class="sign-desc">A common greeting to ask about someone's well-being.</div>
@@ -181,7 +174,6 @@
                 </div>
                 <div class="sign-desc">To introduce yourself.</div>
             </div>
-            <!-- Add more sign cards as needed -->
         </div>
     </div>
 </body>
