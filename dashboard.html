@@ -195,6 +195,52 @@
                 </div>
             </section>
         </main>
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="settings-modal" style="display:none;">
+            <div class="settings-modal-content">
+                <span class="close-modal" id="closeSettingsModal">&times;</span>
+                <h2>Settings</h2>
+                <form id="settingsForm">
+                    <div class="settings-group">
+                        <label for="themeSelect">Theme</label>
+                        <select id="themeSelect" name="theme">
+                            <option value="auto">Auto</option>
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                    </div>
+                    <div class="settings-group">
+                        <label for="notificationsToggle">Notifications</label>
+                        <label class="switch">
+                            <input type="checkbox" id="notificationsToggle" name="notifications">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="settings-group">
+                        <label>Account Security</label>
+                        <button type="button" id="changePasswordBtn">Change Password</button>
+                    </div>
+                    <div class="settings-group">
+                        <label for="fontSizeSelect">Font Size</label>
+                        <select id="fontSizeSelect" name="fontSize">
+                            <option value="normal">Normal</option>
+                            <option value="large">Large</option>
+                        </select>
+                    </div>
+                    <div class="settings-group">
+                        <label for="highContrastToggle">High Contrast</label>
+                        <label class="switch">
+                            <input type="checkbox" id="highContrastToggle" name="highContrast">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="settings-actions">
+                        <button type="submit" class="save-btn">Save</button>
+                        <button type="button" class="cancel-btn" id="cancelSettingsBtn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- Background Elements -->

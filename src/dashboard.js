@@ -46,6 +46,33 @@ function setupDashboardFunctionality() {
     
     // Setup feature buttons
     setupFeatureButtons();
+
+    // Open settings modal
+    document.querySelectorAll('.nav-link').forEach(link => {
+        if (link.textContent.trim().includes('Settings')) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('settingsModal').style.display = 'flex';
+            });
+        }
+    });
+    // Close modal
+    document.getElementById('closeSettingsModal').onclick = closeSettings;
+    document.getElementById('cancelSettingsBtn').onclick = closeSettings;
+    function closeSettings() {
+        document.getElementById('settingsModal').style.display = 'none';
+    }
+    // Save settings
+    document.getElementById('settingsForm').onsubmit = function(e) {
+        e.preventDefault();
+        // You can add logic to save settings to localStorage or backend here
+        closeSettings();
+        alert('Settings saved!');
+    };
+    // Change Password button
+    document.getElementById('changePasswordBtn').onclick = function() {
+        alert('Password change feature coming soon!');
+    };
 }
 
 // Handle logout
