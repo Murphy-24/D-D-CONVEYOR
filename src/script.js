@@ -10,7 +10,8 @@ const nameInput = document.getElementById('name');
 // Authentication credentials
 const VALID_USERS = [
   { email: 'ayhtas777@gmail.com', password: 'cap@1920' },
-  { email: 'perarasu1012@gmail.com', password: 'karthi@2005' }
+  { email: 'perarasu1012@gmail.com', password: 'karthi@2005' },
+  { email: 'vigneshwarvicky86@gmail.com', password: 'indira@86' }
 ];
 
 // Form validation and visual feedback
