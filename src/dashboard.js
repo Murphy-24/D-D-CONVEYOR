@@ -23,7 +23,8 @@ function checkAuthentication() {
 function updateWelcomeMessage(email) {
     const welcomeTitle = document.querySelector('.welcome-content h2');
     if (welcomeTitle) {
-        welcomeTitle.textContent = `Welcome back, ${email.split('@')[0]}!`;
+        const name = localStorage.getItem('profileName') || email.split('@')[0];
+        welcomeTitle.textContent = `Welcome back, ${name}!`;
     }
 }
 

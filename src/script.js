@@ -5,6 +5,7 @@ const passwordInput = document.getElementById('password');
 const togglePasswordBtn = document.getElementById('togglePassword');
 const emailIndicator = document.getElementById('email-indicator');
 const passwordIndicator = document.getElementById('password-indicator');
+const nameInput = document.getElementById('name');
 
 // Authentication credentials
 const VALID_USERS = [
@@ -221,6 +222,7 @@ class AccessibilityForm {
         
         const email = emailInput.value.trim();
         const password = passwordInput.value;
+        const name = nameInput.value.trim();
         
         const isEmailValid = this.validateEmail();
         const isPasswordValid = this.validatePassword();
@@ -243,6 +245,7 @@ class AccessibilityForm {
                 // Store login state
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('userEmail', email);
+                localStorage.setItem('profileName', name);
                 
                 // Redirect to dashboard after a short delay
                 setTimeout(() => {
