@@ -147,11 +147,11 @@
                         <i class="fas fa-chart-line"></i>
                         <span>Progress Report</span>
                     </button>
-                    <button class="action-btn">
+                    <button class="action-btn" id="communityBtn">
                         <i class="fas fa-users"></i>
                         <span>Community</span>
                     </button>
-                    <button class="action-btn">
+                    <button class="action-btn" id="helpBtn">
                         <i class="fas fa-question-circle"></i>
                         <span>Help & Support</span>
                     </button>
@@ -267,5 +267,13 @@
     </div>
 
     <script src="src/dashboard.js"></script>
+    <script>
+document.getElementById('communityBtn').onclick = function() {
+    window.location.href = 'community.html';
+};
+document.getElementById('helpBtn').onclick = function() {
+    window.location.href = 'support.html';
+};
+</script>
 </body>
 </html> 
