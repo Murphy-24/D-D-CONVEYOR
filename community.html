@@ -5,19 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community - Linguosign</title>
     <link rel="stylesheet" href="src/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .community-card {
+            max-width: 600px;
+            margin: 60px auto 0 auto;
+            background: rgba(15, 15, 35, 0.92);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 40px 32px 32px 32px;
+            text-align: center;
+            position: relative;
+        }
+        .community-card h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 18px;
+        }
+        .community-card p {
+            color: #e0e0e0;
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+        }
+        .community-icon {
+            font-size: 3.5rem;
+            color: #00d4ff;
+            margin-bottom: 18px;
+        }
+        .back-dashboard {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            color: #fff;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .back-dashboard:hover {
+            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <a href="dashboard.html" class="back-dashboard"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
-        <div class="learning-container wide-learning">
-            <div class="learning-header">
-                <h2>Community</h2>
-            </div>
-            <div class="interactive-area">
-                <p>Welcome to the Linguosign Community!<br>
-                Here you can connect, share, and learn with others.<br>
-                (Community features coming soon!)</p>
-            </div>
+        <div class="community-card">
+            <div class="community-icon"><i class="fas fa-users"></i></div>
+            <h2>Community</h2>
+            <p>Welcome to the Linguosign Community!</p>
+            <p>Here you can connect, share, and learn with others.</p>
+            <p style="color:#00ff88;font-weight:600;">(Community features coming soon!)</p>
         </div>
     </div>
 </body>

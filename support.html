@@ -5,26 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Help & Support - Linguosign</title>
     <link rel="stylesheet" href="src/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .support-card {
+            max-width: 600px;
+            margin: 60px auto 0 auto;
+            background: rgba(15, 15, 35, 0.92);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 40px 32px 32px 32px;
+            position: relative;
+        }
+        .support-card h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 18px;
+        }
+        .support-card h3 {
+            color: #00d4ff;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .support-card form {
+            margin-bottom: 24px;
+        }
+        .support-card label {
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .support-card input, .support-card textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1.5px solid #00d4ff;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        .support-card button {
+            padding: 10px 22px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .support-card button:hover {
+            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .faq-section {
+            margin-top: 30px;
+        }
+        .faq-section h3 {
+            color: #00ff88;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .faq-section p {
+            color: #e0e0e0;
+        }
+        .support-icon {
+            font-size: 3.5rem;
+            color: #00d4ff;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .back-dashboard {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            color: #fff;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .back-dashboard:hover {
+            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <a href="dashboard.html" class="back-dashboard"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
-        <div class="learning-container wide-learning">
-            <div class="learning-header">
-                <h2>Help & Support</h2>
-            </div>
-            <div class="interactive-area">
-                <h3>Contact Us</h3>
-                <form style="max-width:400px;">
-                    <label for="supportName">Name</label>
-                    <input type="text" id="supportName" name="supportName" required style="width:100%;margin-bottom:10px;">
-                    <label for="supportEmail">Email</label>
-                    <input type="email" id="supportEmail" name="supportEmail" required style="width:100%;margin-bottom:10px;">
-                    <label for="supportMsg">Message</label>
-                    <textarea id="supportMsg" name="supportMsg" rows="4" required style="width:100%;margin-bottom:10px;"></textarea>
-                    <button type="submit" class="check-btn">Send</button>
-                </form>
-                <h3 style="margin-top:30px;">FAQ</h3>
+        <div class="support-card">
+            <div class="support-icon"><i class="fas fa-question-circle"></i></div>
+            <h2>Help & Support</h2>
+            <h3>Contact Us</h3>
+            <form style="max-width:400px;margin:0 auto;">
+                <label for="supportName">Name</label>
+                <input type="text" id="supportName" name="supportName" required>
+                <label for="supportEmail">Email</label>
+                <input type="email" id="supportEmail" name="supportEmail" required>
+                <label for="supportMsg">Message</label>
+                <textarea id="supportMsg" name="supportMsg" rows="4" required></textarea>
+                <button type="submit" class="check-btn">Send</button>
+            </form>
+            <div class="faq-section">
+                <h3>FAQ</h3>
                 <p>(Frequently Asked Questions coming soon!)</p>
             </div>
         </div>
