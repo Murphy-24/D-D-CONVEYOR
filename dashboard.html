@@ -3,367 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D CONVEYOR </title>
+    <title>Linguosign Dashboard</title>
     <link rel="icon" type="image/png" href="src/logo.png">
     <link rel="stylesheet" href="src/dashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+        .navbar-fixed {
+            position: fixed;
+            top: 0; left: 0; width: 100vw;
+            background: rgba(15, 15, 35, 0.98);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+            z-index: 1000;
+            border-bottom: 1.5px solid rgba(0,212,255,0.08);
+        }
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+        }
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .navbar-logo img {
+            width: 44px; height: 44px; border-radius: 50%; background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 24px;
+        }
+        .navbar-link {
+            color: #a0a0a0;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .navbar-link.active, .navbar-link:hover {
+            color: #00d4ff;
+            background: rgba(0,212,255,0.08);
+        }
+        .navbar-link.logout {
+            color: #ff6b35;
+        }
+        .navbar-link.logout:hover {
+            color: #ff0080;
+            background: rgba(255,0,128,0.08);
+        }
+        .dashboard-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 24px 40px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        @media (max-width: 900px) {
+            .dashboard-main { grid-template-columns: 1fr; padding-top: 100px; }
+        }
+        .dashboard-card {
+            background: rgba(15, 15, 35, 0.88);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            padding: 40px 32px 32px 32px;
+            position: relative;
+            margin-bottom: 0;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .dashboard-card:hover {
+            box-shadow: 0 16px 48px rgba(0,212,255,0.18);
+            transform: translateY(-4px) scale(1.02);
+        }
+        .dashboard-card h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .dashboard-card p {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+            margin-bottom: 18px;
+        }
+        .dashboard-actions {
+            display: flex;
+            gap: 18px;
+            margin-top: 18px;
+        }
+        .dashboard-action-btn {
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            box-shadow: 0 4px 16px rgba(0,212,255,0.12);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dashboard-action-btn:hover {
+            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
+            transform: scale(1.08) rotateY(8deg);
+            box-shadow: 0 8px 32px rgba(0,212,255,0.22);
+        }
+        .dashboard-quick {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+        .dashboard-quick-card {
+            background: rgba(20, 20, 40, 0.92);
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(0,212,255,0.08);
+            padding: 24px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            transition: box-shadow 0.2s, transform 0.2s;
+            position: relative;
+        }
+        .dashboard-quick-card:hover {
+            box-shadow: 0 12px 32px rgba(0,212,255,0.18);
+            transform: translateY(-4px) scale(1.03);
+        }
+        .dashboard-quick-card .quick-icon {
+            font-size: 1.6rem;
+            color: #00d4ff;
+            margin-bottom: 6px;
+        }
+        .dashboard-quick-card .quick-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .dashboard-quick-card .quick-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .dashboard-quick-card .quick-action {
+            background: none;
+            border: none;
+            color: #00d4ff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .dashboard-quick-card .quick-action:hover {
+            background: rgba(0,212,255,0.08);
+            color: #ff0080;
+        }
+        .dashboard-chart {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto 24px auto;
+            background: rgba(0,0,0,0.08);
+            border-radius: 18px;
+            padding: 18px 12px 12px 12px;
+        }
+        .dashboard-lottie {
+            width: 80px; height: 80px; margin: 0 auto 18px auto;
+        }
+        @media (max-width: 900px) {
+            .dashboard-main { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .navbar-content { padding: 12px 8px; }
+            .dashboard-main { padding: 90px 4vw 24px 4vw; }
+            .dashboard-card { padding: 24px 8px; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="src/logo.png" alt="Linguosign Logo" style="height: 48px; width: 48px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.08); background: #fff;" />
-                    <h1><span class="linguosign-logo">Linguosign</span></h1>
-                </div>
-                <nav class="nav">
-                    <a href="dashboard.html" class="nav-link active">
-                        <i class="fas fa-home"></i>
-                        Dashboard
-                    </a>
-                    <a href="profile.html" class="nav-link">
-                        <i class="fas fa-user"></i>
-                        Profile
-                    </a>
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-cog"></i>
-                        Settings
-                    </a>
-                    <a href="index.html" class="nav-link logout">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                    </a>
-                </nav>
+    <nav class="navbar-fixed">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <img src="src/logo.png" alt="Linguosign Logo" />
+                <span class="navbar-title">Linguosign Dashboard</span>
             </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Welcome Section -->
-            <section class="welcome-section">
-                <div class="welcome-card">
-                    <div class="welcome-content">
-                        <h2>Welcome back, User!</h2>
-                        <p>Choose your communication method or start learning sign language</p>
-                        <div class="stats">
-                            <div class="stat">
-                                <span class="stat-number">0</span>
-                                <span class="stat-label">Sessions</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-number">0</span>
-                                <span class="stat-label">Signs Learned</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-number">0%</span>
-                                <span class="stat-label">Accuracy</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="welcome-illustration">
-                        <i class="fas fa-hands-helping"></i>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Add tsParticles CDN -->
-            <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
-            <script>
-            document.addEventListener('DOMContentLoaded', function() {
-              tsParticles.load('tsparticles', {
-                background: { color: { value: 'transparent' } },
-                fpsLimit: 60,
-                particles: {
-                  number: { value: 40 },
-                  color: { value: ['#00d4ff', '#ff0080', '#00ff88'] },
-                  shape: { type: 'circle' },
-                  opacity: { value: 0.5 },
-                  size: { value: 6, random: { enable: true, minimumValue: 3 } },
-                  move: { enable: true, speed: 1.5, direction: 'none', outModes: { default: 'bounce' } }
-                },
-                interactivity: {
-                  events: { onHover: { enable: true, mode: 'repulse' }, resize: true },
-                  modes: { repulse: { distance: 80, duration: 0.4 } }
-                },
-                detectRetina: true
-              });
-            });
-            </script>
-            <style>
-            #tsparticles {
-              position: fixed;
-              top: 0; left: 0; width: 100vw; height: 100vh;
-              z-index: 0;
-            }
-            .animated-3d-btn {
-              background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-              color: #fff;
-              border: none;
-              border-radius: 16px;
-              padding: 20px 48px;
-              font-size: 1.5rem;
-              font-weight: 800;
-              box-shadow: 0 8px 32px rgba(0,212,255,0.18);
-              transition: transform 0.2s, box-shadow 0.2s;
-              perspective: 600px;
-              margin: 32px auto 0 auto;
-              display: block;
-              cursor: pointer;
-              letter-spacing: 1px;
-            }
-            .animated-3d-btn:hover {
-              transform: scale(1.08) rotateY(10deg) rotateX(2deg);
-              box-shadow: 0 16px 48px rgba(0,212,255,0.28);
-            }
-            .feature-card {
-              transition: transform 0.25s cubic-bezier(.25,.8,.25,1), box-shadow 0.25s;
-              box-shadow: 0 4px 16px rgba(0,212,255,0.08);
-              will-change: transform;
-            }
-            .feature-card:hover {
-              transform: scale(1.05) rotateY(6deg) rotateX(2deg);
-              box-shadow: 0 12px 32px rgba(0,212,255,0.18);
-              z-index: 2;
-            }
-            .feature-btn, .feature-btn:visited {
-              background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-              color: #fff;
-              border: none;
-              border-radius: 12px;
-              padding: 12px 32px;
-              font-size: 1.1rem;
-              font-weight: 700;
-              box-shadow: 0 4px 16px rgba(0,212,255,0.12);
-              transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-              cursor: pointer;
-              margin-top: 12px;
-              display: inline-flex;
-              align-items: center;
-              gap: 8px;
-              text-decoration: none;
-            }
-            .feature-btn:hover {
-              background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
-              transform: scale(1.08) rotateY(8deg);
-              box-shadow: 0 8px 32px rgba(0,212,255,0.22);
-            }
-            </style>
-            <div id="tsparticles"></div>
-            <!-- Add the 3D animated button below the welcome section -->
-            <div style="text-align:center;z-index:2;position:relative;">
-              <button class="animated-3d-btn" onclick="window.location.href='learning.html'">
-                <i class="fas fa-graduation-cap"></i> Start Learning
-              </button>
-            </div>
-
-            <!-- Main Features Grid -->
-            <section class="features-section">
-                <h3 class="section-title">Communication Tools</h3>
-                <div class="features-grid">
-                    <!-- Sign to Text -->
-                    <div class="feature-card sign-to-text">
-                        <div class="feature-icon">
-                            <i class="fas fa-camera"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h4>Sign to Text</h4>
-                            <p>Use your camera to translate sign language into text in real-time</p>
-                            <div class="feature-stats">
-                                <span><i class="fas fa-clock"></i> Real-time</span>
-                                <span><i class="fas fa-language"></i> 95% Accuracy</span>
-                            </div>
-                        </div>
-                        <button class="feature-btn" onclick="openSignToText()">
-                            <span>Start</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </button>
-                        <div class="feature-overlay"></div>
-                    </div>
-
-                    <!-- Text to Sign -->
-                    <div class="feature-card text-to-sign">
-                        <div class="feature-icon">
-                            <i class="fas fa-keyboard"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h4>Text to Sign</h4>
-                            <p>Convert your text messages into animated sign language demonstrations</p>
-                            <div class="feature-stats">
-                                <span><i class="fas fa-bolt"></i> Instant</span>
-                                <span><i class="fas fa-hands"></i> 3D Animation</span>
-                            </div>
-                        </div>
-                        <button class="feature-btn" onclick="openTextToSign()">
-                            <span>Start</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </button>
-                        <div class="feature-overlay"></div>
-                    </div>
-
-                    <!-- Learning Module -->
-                    <div class="feature-card learning-module">
-                        <div class="feature-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h4>Learning Module</h4>
-                            <p>Interactive lessons and practice sessions to master sign language</p>
-                            <div class="feature-stats">
-                                <span><i class="fas fa-book"></i> 50+ Lessons</span>
-                                <span><i class="fas fa-star"></i> Beginner to Advanced</span>
-                            </div>
-                        </div>
-                        <a href="learning.html" class="feature-btn" style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
-                            <span>Start</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <div class="feature-overlay"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Quick Actions -->
-            <section class="quick-actions">
-                <h3 class="section-title">Quick Actions</h3>
-                <div class="actions-grid">
-                    <button class="action-btn">
-                        <i class="fas fa-history"></i>
-                        <span>Recent Sessions</span>
-                    </button>
-                    <button class="action-btn">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Progress Report</span>
-                    </button>
-                    <button class="action-btn" id="communityBtn">
-                        <i class="fas fa-users"></i>
-                        <span>Community</span>
-                    </button>
-                    <button class="action-btn" id="helpBtn">
-                        <i class="fas fa-question-circle"></i>
-                        <span>Help & Support</span>
-                    </button>
-                </div>
-            </section>
-
-            <!-- Recent Activity -->
-            <section class="recent-activity">
-                <h3 class="section-title">Recent Activity</h3>
-                <div class="activity-list">
-                    <div class="activity-item">
-                        <div class="activity-icon">
-                            <i class="fas fa-camera"></i>
-                        </div>
-                        <div class="activity-content">
-                            <h5>Sign to Text Session</h5>
-                            <p>Translated 15 signs with 92% accuracy</p>
-                            <span class="activity-time">2 hours ago</span>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div class="activity-content">
-                            <h5>Completed Lesson 12</h5>
-                            <p>Family & Relationships vocabulary</p>
-                            <span class="activity-time">1 day ago</span>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon">
-                            <i class="fas fa-keyboard"></i>
-                        </div>
-                        <div class="activity-content">
-                            <h5>Text to Sign Practice</h5>
-                            <p>Converted 8 sentences to signs</p>
-                            <span class="activity-time">2 days ago</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <!-- Settings Modal -->
-        <div id="settingsModal" class="settings-modal" style="display:none;">
-            <div class="settings-modal-content">
-                <span class="close-modal" id="closeSettingsModal">&times;</span>
-                <h2>Settings</h2>
-                <form id="settingsForm">
-                    <div class="settings-group">
-                        <label for="themeSelect">Theme</label>
-                        <select id="themeSelect" name="theme">
-                            <option value="auto">Auto</option>
-                            <option value="light">Light</option>
-                            <option value="dark">Dark</option>
-                        </select>
-                    </div>
-                    <div class="settings-group">
-                        <label for="notificationsToggle">Notifications</label>
-                        <label class="switch">
-                            <input type="checkbox" id="notificationsToggle" name="notifications">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    <div class="settings-group">
-                        <label>Account Security</label>
-                        <button type="button" id="changePasswordBtn">Change Password</button>
-                    </div>
-                    <div class="settings-group">
-                        <label for="fontSizeSelect">Font Size</label>
-                        <select id="fontSizeSelect" name="fontSize">
-                            <option value="normal">Normal</option>
-                            <option value="large">Large</option>
-                        </select>
-                    </div>
-                    <div class="settings-group">
-                        <label for="highContrastToggle">High Contrast</label>
-                        <label class="switch">
-                            <input type="checkbox" id="highContrastToggle" name="highContrast">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    <div class="settings-actions">
-                        <button type="submit" class="save-btn">Save</button>
-                        <button type="button" class="cancel-btn" id="cancelSettingsBtn">Cancel</button>
-                    </div>
-                </form>
+            <div class="navbar-links">
+                <a href="dashboard.html" class="navbar-link active"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="profile.html" class="navbar-link"><i class="fas fa-user"></i> Profile</a>
+                <a href="#" class="navbar-link"><i class="fas fa-cog"></i> Settings</a>
+                <a href="index.html" class="navbar-link logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
-    </div>
-
-    <!-- Background Elements -->
-    <div class="background-elements">
-        <!-- Geometric shapes -->
-        <div class="geometric-shape shape-1"></div>
-        <div class="geometric-shape shape-2"></div>
-        <div class="geometric-shape shape-3"></div>
-        <div class="geometric-shape shape-4"></div>
-        
-        <!-- Floating particles -->
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        
-        <!-- Circuit lines -->
-        <div class="circuit-line"></div>
-        <div class="circuit-line"></div>
-        <div class="circuit-line"></div>
-        <div class="circuit-line"></div>
-    </div>
-
-    <script src="src/dashboard.js"></script>
+    </nav>
+    <main class="dashboard-main">
+        <section class="dashboard-card">
+            <div class="dashboard-lottie">
+                <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_4kx2q32n.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+            <h2>Welcome back, User!</h2>
+            <p>Choose your communication method or start learning sign language.</p>
+            <div class="dashboard-chart">
+                <canvas id="statsChart"></canvas>
+            </div>
+            <div class="dashboard-actions">
+                <button class="dashboard-action-btn" onclick="window.location.href='learning.html'"><i class="fas fa-graduation-cap"></i> Start Learning</button>
+                <button class="dashboard-action-btn" onclick="window.location.href='sign-to-text.html'"><i class="fas fa-camera"></i> Sign to Text</button>
+                <button class="dashboard-action-btn" onclick="window.location.href='text-to-sign.html'"><i class="fas fa-keyboard"></i> Text to Sign</button>
+            </div>
+        </section>
+        <section>
+            <div class="dashboard-quick">
+                <div class="dashboard-quick-card">
+                    <span class="quick-icon"><i class="fas fa-history"></i></span>
+                    <span class="quick-title">Recent Sessions</span>
+                    <div class="quick-actions">
+                        <button class="quick-action" title="View"><i class="fas fa-eye"></i></button>
+                        <button class="quick-action" title="Delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="dashboard-quick-card">
+                    <span class="quick-icon"><i class="fas fa-chart-line"></i></span>
+                    <span class="quick-title">Progress Report</span>
+                    <div class="quick-actions">
+                        <button class="quick-action" title="View"><i class="fas fa-eye"></i></button>
+                        <button class="quick-action" title="Edit"><i class="fas fa-edit"></i></button>
+                    </div>
+                </div>
+                <div class="dashboard-quick-card">
+                    <span class="quick-icon"><i class="fas fa-users"></i></span>
+                    <span class="quick-title">Community</span>
+                    <div class="quick-actions">
+                        <button class="quick-action" title="Go" onclick="window.location.href='community.html'"><i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <div class="dashboard-quick-card">
+                    <span class="quick-icon"><i class="fas fa-question-circle"></i></span>
+                    <span class="quick-title">Help & Support</span>
+                    <div class="quick-actions">
+                        <button class="quick-action" title="Go" onclick="window.location.href='support.html'"><i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
     <script>
-document.getElementById('communityBtn').onclick = function() {
-    window.location.href = 'community.html';
-};
-document.getElementById('helpBtn').onclick = function() {
-    window.location.href = 'support.html';
-};
-</script>
+    // Chart.js for stats
+    const ctx = document.getElementById('statsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Sessions', 'Signs Learned', 'Accuracy'],
+            datasets: [{
+                data: [24, 156, 89],
+                backgroundColor: [
+                    'rgba(0,212,255,0.8)',
+                    'rgba(255,0,128,0.8)',
+                    'rgba(0,255,136,0.8)'
+                ],
+                borderWidth: 2,
+                borderColor: '#181830',
+                hoverOffset: 12
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#e0e0e0',
+                        font: { size: 14, weight: 'bold' }
+                    }
+                }
+            },
+            cutout: '70%',
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+    </script>
 </body>
 </html> 
