@@ -69,6 +69,64 @@
                 </div>
             </section>
 
+            <!-- Add tsParticles CDN -->
+            <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              tsParticles.load('tsparticles', {
+                background: { color: { value: 'transparent' } },
+                fpsLimit: 60,
+                particles: {
+                  number: { value: 40 },
+                  color: { value: ['#00d4ff', '#ff0080', '#00ff88'] },
+                  shape: { type: 'circle' },
+                  opacity: { value: 0.5 },
+                  size: { value: 6, random: { enable: true, minimumValue: 3 } },
+                  move: { enable: true, speed: 1.5, direction: 'none', outModes: { default: 'bounce' } }
+                },
+                interactivity: {
+                  events: { onHover: { enable: true, mode: 'repulse' }, resize: true },
+                  modes: { repulse: { distance: 80, duration: 0.4 } }
+                },
+                detectRetina: true
+              });
+            });
+            </script>
+            <style>
+            #tsparticles {
+              position: fixed;
+              top: 0; left: 0; width: 100vw; height: 100vh;
+              z-index: 0;
+            }
+            .animated-3d-btn {
+              background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+              color: #fff;
+              border: none;
+              border-radius: 16px;
+              padding: 20px 48px;
+              font-size: 1.5rem;
+              font-weight: 800;
+              box-shadow: 0 8px 32px rgba(0,212,255,0.18);
+              transition: transform 0.2s, box-shadow 0.2s;
+              perspective: 600px;
+              margin: 32px auto 0 auto;
+              display: block;
+              cursor: pointer;
+              letter-spacing: 1px;
+            }
+            .animated-3d-btn:hover {
+              transform: scale(1.08) rotateY(10deg) rotateX(2deg);
+              box-shadow: 0 16px 48px rgba(0,212,255,0.28);
+            }
+            </style>
+            <div id="tsparticles"></div>
+            <!-- Add the 3D animated button below the welcome section -->
+            <div style="text-align:center;z-index:2;position:relative;">
+              <button class="animated-3d-btn" onclick="window.location.href='learning.html'">
+                <i class="fas fa-graduation-cap"></i> Start Learning
+              </button>
+            </div>
+
             <!-- Main Features Grid -->
             <section class="features-section">
                 <h3 class="section-title">Communication Tools</h3>
