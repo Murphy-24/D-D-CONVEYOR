@@ -118,6 +118,38 @@
               transform: scale(1.08) rotateY(10deg) rotateX(2deg);
               box-shadow: 0 16px 48px rgba(0,212,255,0.28);
             }
+            .feature-card {
+              transition: transform 0.25s cubic-bezier(.25,.8,.25,1), box-shadow 0.25s;
+              box-shadow: 0 4px 16px rgba(0,212,255,0.08);
+              will-change: transform;
+            }
+            .feature-card:hover {
+              transform: scale(1.05) rotateY(6deg) rotateX(2deg);
+              box-shadow: 0 12px 32px rgba(0,212,255,0.18);
+              z-index: 2;
+            }
+            .feature-btn, .feature-btn:visited {
+              background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+              color: #fff;
+              border: none;
+              border-radius: 12px;
+              padding: 12px 32px;
+              font-size: 1.1rem;
+              font-weight: 700;
+              box-shadow: 0 4px 16px rgba(0,212,255,0.12);
+              transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+              cursor: pointer;
+              margin-top: 12px;
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              text-decoration: none;
+            }
+            .feature-btn:hover {
+              background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
+              transform: scale(1.08) rotateY(8deg);
+              box-shadow: 0 8px 32px rgba(0,212,255,0.22);
+            }
             </style>
             <div id="tsparticles"></div>
             <!-- Add the 3D animated button below the welcome section -->

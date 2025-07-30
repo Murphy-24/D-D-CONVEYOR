@@ -6,6 +6,29 @@
     <title>Community - Linguosign</title>
     <link rel="stylesheet" href="src/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add tsParticles CDN for animated background -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      tsParticles.load('tsparticles', {
+        background: { color: { value: 'transparent' } },
+        fpsLimit: 60,
+        particles: {
+          number: { value: 20 },
+          color: { value: ['#00d4ff', '#ff0080', '#00ff88'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.4 },
+          size: { value: 5, random: { enable: true, minimumValue: 2 } },
+          move: { enable: true, speed: 1.2, direction: 'none', outModes: { default: 'bounce' } }
+        },
+        interactivity: {
+          events: { onHover: { enable: true, mode: 'repulse' }, resize: true },
+          modes: { repulse: { distance: 60, duration: 0.3 } }
+        },
+        detectRetina: true
+      });
+    });
+    </script>
     <style>
         .community-card {
             max-width: 600px;
@@ -36,32 +59,39 @@
             color: #00d4ff;
             margin-bottom: 18px;
         }
-        .back-dashboard {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 24px;
-            color: #fff;
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-            border: none;
-            border-radius: 8px;
-            padding: 10px 22px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-decoration: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-            transition: background 0.2s, transform 0.2s;
+        #tsparticles {
+          position: fixed;
+          top: 0; left: 0; width: 100vw; height: 100vh;
+          z-index: 0;
+        }
+        .back-dashboard, .back-dashboard:visited {
+          background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+          color: #fff;
+          border: none;
+          border-radius: 12px;
+          padding: 12px 32px;
+          font-size: 1.1rem;
+          font-weight: 700;
+          box-shadow: 0 4px 16px rgba(0,212,255,0.12);
+          transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+          cursor: pointer;
+          margin-bottom: 24px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          text-decoration: none;
         }
         .back-dashboard:hover {
-            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
-            color: #fff;
-            transform: translateY(-2px) scale(1.04);
+          background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
+          transform: scale(1.08) rotateY(8deg);
+          box-shadow: 0 8px 32px rgba(0,212,255,0.22);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <a href="dashboard.html" class="back-dashboard"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        <div id="tsparticles"></div>
         <div class="community-card">
             <div class="community-icon"><i class="fas fa-users"></i></div>
             <h2>Community</h2>
