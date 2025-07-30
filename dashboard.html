@@ -1,310 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linguosign Dashboard</title>
-    <link rel="icon" type="image/png" href="src/logo.png">
-    <link rel="stylesheet" href="src/dashboard.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <style>
-        .navbar-fixed {
-            position: fixed;
-            top: 0; left: 0; width: 100vw;
-            background: rgba(15, 15, 35, 0.98);
-            box-shadow: 0 2px 16px rgba(0,0,0,0.12);
-            z-index: 1000;
-            border-bottom: 1.5px solid rgba(0,212,255,0.08);
-        }
-        .navbar-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 32px;
-        }
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .navbar-logo img {
-            width: 44px; height: 44px; border-radius: 50%; background: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .navbar-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .navbar-links {
-            display: flex;
-            gap: 24px;
-        }
-        .navbar-link {
-            color: #a0a0a0;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 8px 18px;
-            border-radius: 8px;
-            transition: background 0.2s, color 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .navbar-link.active, .navbar-link:hover {
-            color: #00d4ff;
-            background: rgba(0,212,255,0.08);
-        }
-        .navbar-link.logout {
-            color: #ff6b35;
-        }
-        .navbar-link.logout:hover {
-            color: #ff0080;
-            background: rgba(255,0,128,0.08);
-        }
-        .dashboard-main {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 120px 24px 40px 24px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
-        @media (max-width: 900px) {
-            .dashboard-main { grid-template-columns: 1fr; padding-top: 100px; }
-        }
-        .dashboard-card {
-            background: rgba(15, 15, 35, 0.88);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-            padding: 40px 32px 32px 32px;
-            position: relative;
-            margin-bottom: 0;
-            transition: box-shadow 0.2s, transform 0.2s;
-        }
-        .dashboard-card:hover {
-            box-shadow: 0 16px 48px rgba(0,212,255,0.18);
-            transform: translateY(-4px) scale(1.02);
-        }
-        .dashboard-card h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .dashboard-card p {
-            color: #a0a0a0;
-            font-size: 1.1rem;
-            margin-bottom: 18px;
-        }
-        .dashboard-actions {
-            display: flex;
-            gap: 18px;
-            margin-top: 18px;
-        }
-        .dashboard-action-btn {
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            padding: 14px 32px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            box-shadow: 0 4px 16px rgba(0,212,255,0.12);
-            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .dashboard-action-btn:hover {
-            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
-            transform: scale(1.08) rotateY(8deg);
-            box-shadow: 0 8px 32px rgba(0,212,255,0.22);
-        }
-        .dashboard-quick {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin-top: 24px;
-        }
-        .dashboard-quick-card {
-            background: rgba(20, 20, 40, 0.92);
-            border-radius: 18px;
-            box-shadow: 0 4px 16px rgba(0,212,255,0.08);
-            padding: 24px 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
-            transition: box-shadow 0.2s, transform 0.2s;
-            position: relative;
-        }
-        .dashboard-quick-card:hover {
-            box-shadow: 0 12px 32px rgba(0,212,255,0.18);
-            transform: translateY(-4px) scale(1.03);
-        }
-        .dashboard-quick-card .quick-icon {
-            font-size: 1.6rem;
-            color: #00d4ff;
-            margin-bottom: 6px;
-        }
-        .dashboard-quick-card .quick-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-        }
-        .dashboard-quick-card .quick-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 8px;
-        }
-        .dashboard-quick-card .quick-action {
-            background: none;
-            border: none;
-            color: #00d4ff;
-            font-size: 1.1rem;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: background 0.2s, color 0.2s;
-        }
-        .dashboard-quick-card .quick-action:hover {
-            background: rgba(0,212,255,0.08);
-            color: #ff0080;
-        }
-        .dashboard-chart {
-            width: 100%;
-            max-width: 420px;
-            margin: 0 auto 24px auto;
-            background: rgba(0,0,0,0.08);
-            border-radius: 18px;
-            padding: 18px 12px 12px 12px;
-        }
-        .dashboard-lottie {
-            width: 80px; height: 80px; margin: 0 auto 18px auto;
-        }
-        @media (max-width: 900px) {
-            .dashboard-main { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 600px) {
-            .navbar-content { padding: 12px 8px; }
-            .dashboard-main { padding: 90px 4vw 24px 4vw; }
-            .dashboard-card { padding: 24px 8px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linguosign Dashboard</title>
+  <link rel="icon" type="image/png" href="src/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .chart-legend { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; }
+    .chart-legend span { display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: #64748b; }
+    .chart-legend-dot { width: 1rem; height: 1rem; border-radius: 9999px; display: inline-block; }
+  </style>
 </head>
-<body>
-    <nav class="navbar-fixed">
-        <div class="navbar-content">
-            <div class="navbar-logo">
-                <img src="src/logo.png" alt="Linguosign Logo" />
-                <span class="navbar-title">Linguosign Dashboard</span>
-            </div>
-            <div class="navbar-links">
-                <a href="dashboard.html" class="navbar-link active"><i class="fas fa-home"></i> Dashboard</a>
-                <a href="profile.html" class="navbar-link"><i class="fas fa-user"></i> Profile</a>
-                <a href="#" class="navbar-link"><i class="fas fa-cog"></i> Settings</a>
-                <a href="index.html" class="navbar-link logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 min-h-screen text-slate-100">
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 w-full bg-slate-900/95 border-b border-slate-800 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+      <div class="flex items-center gap-3">
+        <img src="src/logo.png" alt="Linguosign Logo" class="w-10 h-10 rounded-full bg-white shadow" />
+        <span class="text-xl font-bold tracking-tight text-teal-400">Linguosign</span>
+      </div>
+      <div class="flex items-center gap-2 md:gap-4">
+        <a href="dashboard.html" class="px-3 py-2 rounded-md font-semibold text-slate-200 bg-slate-800 hover:bg-teal-600 hover:text-white transition-colors duration-200 flex items-center gap-1 active:bg-teal-700"><span class="material-icons">dashboard</span> Dashboard</a>
+        <a href="profile.html" class="px-3 py-2 rounded-md font-semibold text-slate-400 hover:bg-teal-600 hover:text-white transition-colors duration-200 flex items-center gap-1"><span class="material-icons">person</span> Profile</a>
+        <a href="#" class="px-3 py-2 rounded-md font-semibold text-slate-400 hover:bg-teal-600 hover:text-white transition-colors duration-200 flex items-center gap-1"><span class="material-icons">settings</span> Settings</a>
+        <a href="index.html" class="px-3 py-2 rounded-md font-semibold text-rose-400 hover:bg-rose-600 hover:text-white transition-colors duration-200 flex items-center gap-1"><span class="material-icons">logout</span> Logout</a>
+      </div>
+    </div>
+  </nav>
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto pt-28 pb-10 px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Welcome & Chart Card -->
+    <section class="bg-slate-800/90 rounded-2xl shadow-xl p-8 flex flex-col gap-6 min-h-[420px]">
+      <div class="flex items-center gap-4">
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_4kx2q32n.json" background="transparent" speed="1" style="width:60px;height:60px" loop autoplay></lottie-player>
+        <div>
+          <h1 class="text-2xl md:text-3xl font-bold text-slate-100 mb-1">Welcome back, <span class="text-teal-400">User</span>!</h1>
+          <p class="text-slate-400 text-base font-light">Choose your communication method or start learning sign language.</p>
         </div>
-    </nav>
-    <main class="dashboard-main">
-        <section class="dashboard-card">
-            <div class="dashboard-lottie">
-                <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_4kx2q32n.json" background="transparent" speed="1" loop autoplay></lottie-player>
-            </div>
-            <h2>Welcome back, User!</h2>
-            <p>Choose your communication method or start learning sign language.</p>
-            <div class="dashboard-chart">
-                <canvas id="statsChart"></canvas>
-            </div>
-            <div class="dashboard-actions">
-                <button class="dashboard-action-btn" onclick="window.location.href='learning.html'"><i class="fas fa-graduation-cap"></i> Start Learning</button>
-                <button class="dashboard-action-btn" onclick="window.location.href='sign-to-text.html'"><i class="fas fa-camera"></i> Sign to Text</button>
-                <button class="dashboard-action-btn" onclick="window.location.href='text-to-sign.html'"><i class="fas fa-keyboard"></i> Text to Sign</button>
-            </div>
-        </section>
-        <section>
-            <div class="dashboard-quick">
-                <div class="dashboard-quick-card">
-                    <span class="quick-icon"><i class="fas fa-history"></i></span>
-                    <span class="quick-title">Recent Sessions</span>
-                    <div class="quick-actions">
-                        <button class="quick-action" title="View"><i class="fas fa-eye"></i></button>
-                        <button class="quick-action" title="Delete"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-                <div class="dashboard-quick-card">
-                    <span class="quick-icon"><i class="fas fa-chart-line"></i></span>
-                    <span class="quick-title">Progress Report</span>
-                    <div class="quick-actions">
-                        <button class="quick-action" title="View"><i class="fas fa-eye"></i></button>
-                        <button class="quick-action" title="Edit"><i class="fas fa-edit"></i></button>
-                    </div>
-                </div>
-                <div class="dashboard-quick-card">
-                    <span class="quick-icon"><i class="fas fa-users"></i></span>
-                    <span class="quick-title">Community</span>
-                    <div class="quick-actions">
-                        <button class="quick-action" title="Go" onclick="window.location.href='community.html'"><i class="fas fa-arrow-right"></i></button>
-                    </div>
-                </div>
-                <div class="dashboard-quick-card">
-                    <span class="quick-icon"><i class="fas fa-question-circle"></i></span>
-                    <span class="quick-title">Help & Support</span>
-                    <div class="quick-actions">
-                        <button class="quick-action" title="Go" onclick="window.location.href='support.html'"><i class="fas fa-arrow-right"></i></button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    <script>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="w-56 h-56">
+          <canvas id="statsChart"></canvas>
+        </div>
+        <div class="chart-legend">
+          <span><span class="chart-legend-dot" style="background:#14b8a6"></span> Sessions</span>
+          <span><span class="chart-legend-dot" style="background:#6366f1"></span> Signs Learned</span>
+          <span><span class="chart-legend-dot" style="background:#f472b6"></span> Accuracy</span>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-4 justify-center mt-2">
+        <button class="bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-3 rounded-lg shadow transition-all duration-200 flex items-center gap-2"><span class="material-icons">school</span> Start Learning</button>
+        <button class="bg-slate-700 hover:bg-teal-600 text-white font-semibold px-6 py-3 rounded-lg shadow transition-all duration-200 flex items-center gap-2"><span class="material-icons">camera_alt</span> Sign to Text</button>
+        <button class="bg-slate-700 hover:bg-teal-600 text-white font-semibold px-6 py-3 rounded-lg shadow transition-all duration-200 flex items-center gap-2"><span class="material-icons">keyboard</span> Text to Sign</button>
+      </div>
+    </section>
+    <!-- Quick Actions & Community -->
+    <section class="flex flex-col gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="bg-slate-800/90 rounded-2xl shadow-lg p-6 flex flex-col gap-3 hover:shadow-2xl transition-shadow duration-200">
+          <div class="flex items-center gap-2 mb-2"><span class="material-icons text-teal-400">history</span><span class="font-semibold text-lg">Recent Sessions</span></div>
+          <div class="flex gap-2 mt-2">
+            <button class="hover:bg-slate-700 p-2 rounded transition-colors" title="View"><span class="material-icons text-slate-400">visibility</span></button>
+            <button class="hover:bg-slate-700 p-2 rounded transition-colors" title="Delete"><span class="material-icons text-rose-400">delete</span></button>
+          </div>
+        </div>
+        <div class="bg-slate-800/90 rounded-2xl shadow-lg p-6 flex flex-col gap-3 hover:shadow-2xl transition-shadow duration-200">
+          <div class="flex items-center gap-2 mb-2"><span class="material-icons text-teal-400">bar_chart</span><span class="font-semibold text-lg">Progress Report</span></div>
+          <div class="flex gap-2 mt-2">
+            <button class="hover:bg-slate-700 p-2 rounded transition-colors" title="View"><span class="material-icons text-slate-400">visibility</span></button>
+            <button class="hover:bg-slate-700 p-2 rounded transition-colors" title="Edit"><span class="material-icons text-teal-400">edit</span></button>
+          </div>
+        </div>
+        <div class="bg-slate-800/90 rounded-2xl shadow-lg p-6 flex flex-col gap-3 hover:shadow-2xl transition-shadow duration-200">
+          <div class="flex items-center gap-2 mb-2"><span class="material-icons text-teal-400">groups</span><span class="font-semibold text-lg">Community</span></div>
+          <div class="flex gap-2 mt-2">
+            <button class="hover:bg-slate-700 p-2 rounded transition-colors" title="Go" onclick="window.location.href='community.html'"><span class="material-icons text-teal-400">arrow_forward</span></button>
+          </div>
+        </div>
+        <div class="bg-slate-800/90 rounded-2xl shadow-lg p-6 flex flex-col gap-3 hover:shadow-2xl transition-shadow duration-200">
+          <div class="flex items-center gap-2 mb-2"><span class="material-icons text-teal-400">help</span><span class="font-semibold text-lg">Help & Support</span></div>
+          <div class="flex gap-2 mt-2">
+            <button class="hover:bg-slate-700 p-2 rounded transition-colors" title="Go" onclick="window.location.href='support.html'"><span class="material-icons text-teal-400">arrow_forward</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
     // Chart.js for stats
     const ctx = document.getElementById('statsChart').getContext('2d');
     new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Sessions', 'Signs Learned', 'Accuracy'],
-            datasets: [{
-                data: [24, 156, 89],
-                backgroundColor: [
-                    'rgba(0,212,255,0.8)',
-                    'rgba(255,0,128,0.8)',
-                    'rgba(0,255,136,0.8)'
-                ],
-                borderWidth: 2,
-                borderColor: '#181830',
-                hoverOffset: 12
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: '#e0e0e0',
-                        font: { size: 14, weight: 'bold' }
-                    }
-                }
+      type: 'doughnut',
+      data: {
+        labels: ['Sessions', 'Signs Learned', 'Accuracy'],
+        datasets: [{
+          data: [24, 156, 89],
+          backgroundColor: [
+            '#14b8a6', // teal
+            '#6366f1', // indigo
+            '#f472b6'  // pink
+          ],
+          borderWidth: 2,
+          borderColor: '#1e293b',
+          hoverOffset: 14
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.label}: ${context.parsed}`;
+              }
             },
-            cutout: '70%',
-            responsive: true,
-            maintainAspectRatio: false
-        }
+            backgroundColor: '#1e293b',
+            titleColor: '#14b8a6',
+            bodyColor: '#fff',
+            borderColor: '#14b8a6',
+            borderWidth: 1,
+            padding: 12,
+            caretSize: 8,
+            cornerRadius: 8
+          }
+        },
+        cutout: '70%',
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { animateRotate: true, animateScale: true }
+      }
     });
-    </script>
+  </script>
 </body>
 </html> 
