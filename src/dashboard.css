@@ -5,14 +5,94 @@
     box-sizing: border-box;
 }
 
+/* --- Blue & Purple Tech Palette --- */
+:root {
+  --primary: #3a86ff;
+  --secondary: #8338ec;
+  --accent: #ffbe0b;
+  --background: #1a1a2e;
+  --text-main: #e0e0e0;
+  --text-muted: #a0a0a0;
+}
 body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
-    min-height: 100vh;
-    color: #e0e0e0;
-    line-height: 1.6;
-    position: relative;
-    overflow-x: hidden;
+  background: linear-gradient(135deg, var(--background) 0%, #23244d 50%, var(--secondary) 100%);
+  color: var(--text-main);
+}
+.header, .navbar-fixed {
+  background: rgba(26,26,46,0.98);
+  border-bottom: 2px solid var(--primary);
+}
+.navbar-title, .logo h1 {
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nav-link.active, .navbar-link.active, .nav-link:hover, .navbar-link:hover {
+  color: var(--primary);
+  background: rgba(58,134,255,0.08);
+}
+.nav-link.logout, .navbar-link.logout {
+  color: var(--accent);
+}
+.nav-link.logout:hover, .navbar-link.logout:hover {
+  color: var(--secondary);
+  background: rgba(131,56,236,0.08);
+}
+.dashboard-card, .feature-card, .dashboard-quick-card, .activity-item {
+  background: rgba(26,26,46,0.92);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(58,134,255,0.10);
+}
+.dashboard-card h2, .feature-content h4, .section-title {
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dashboard-action-btn, .feature-btn, .check-btn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(58,134,255,0.12);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.dashboard-action-btn:hover, .feature-btn:hover, .check-btn:hover {
+  background: linear-gradient(135deg, var(--secondary), var(--primary), var(--accent));
+  color: #fff;
+  transform: scale(1.08) rotateY(8deg);
+  box-shadow: 0 8px 32px rgba(58,134,255,0.22);
+}
+.quick-icon, .feature-icon, .activity-icon {
+  color: var(--primary) !important;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+.stat-number {
+  color: var(--primary);
+}
+.stat-label, .feature-content p, .dashboard-card p, .quick-title, .activity-content p {
+  color: var(--text-muted);
+}
+.section-title::after {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+/* Accent for highlights */
+.save-btn {
+  background: var(--accent);
+  color: #23244d;
+}
+.save-btn:hover {
+  background: var(--primary);
+  color: #fff;
+}
+.cancel-btn {
+  background: #23244d;
+  color: var(--text-main);
+}
+.cancel-btn:hover {
+  background: var(--secondary);
+  color: #fff;
 }
 
 /* Animated background particles */
