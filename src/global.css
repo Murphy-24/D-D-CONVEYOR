@@ -1,0 +1,70 @@
+:root {
+    --primary-bg: linear-gradient(135deg, #1a1f3c, #2a1f6f);
+    --secondary-bg: rgba(26, 31, 60, 0.95);
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --accent-primary: #00ffff;
+    --accent-secondary: #ff00ff;
+    --accent-tertiary: #00ff95;
+    --gradient: linear-gradient(135deg, #00ffff, #ff00ff, #00ff95);
+}
+
+body {
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.gradient-text {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.card {
+    background: var(--secondary-bg);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Navigation styles */
+.nav-link {
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--accent-secondary);
+}
+
+/* Button styles */
+.btn {
+    background: var(--gradient);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
