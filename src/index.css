@@ -1,3 +1,13 @@
+/* Blue & Purple Tech Palette */
+:root {
+  --primary: #3a86ff;
+  --secondary: #8338ec;
+  --accent: #ffbe0b;
+  --background: #1a1a2e;
+  --text-main: #e0e0e0;
+  --text-muted: #a0a0a0;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -7,12 +17,9 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+    background: linear-gradient(135deg, var(--background) 0%, #23244d 50%, var(--secondary) 100%);
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #e0e0e0;
+    color: var(--text-main);
     line-height: 1.6;
     position: relative;
     overflow-x: hidden;
@@ -52,15 +59,12 @@ body::before {
 
 /* Login Card */
 .login-card {
-    background: rgba(15, 15, 35, 0.8);
+    background: rgba(26,26,46,0.92);
     backdrop-filter: blur(20px);
     border-radius: 24px;
     padding: 60px;
-    box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(58,134,255,0.15);
+    border: 1px solid rgba(58,134,255,0.1);
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -138,7 +142,7 @@ body::before {
 .logo h1 {
     font-size: 2.2rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -147,7 +151,7 @@ body::before {
 }
 
 .subtitle {
-    color: #a0a0a0;
+    color: var(--text-muted);
     font-size: 1rem;
     font-weight: 400;
     margin-top: 10px;
@@ -168,7 +172,7 @@ body::before {
     align-items: center;
     gap: 12px;
     font-weight: 600;
-    color: #e0e0e0;
+    color: var(--text-main);
     margin-bottom: 12px;
     font-size: 0.95rem;
     text-transform: uppercase;
@@ -176,7 +180,7 @@ body::before {
 }
 
 .input-group label i {
-    color: #00d4ff;
+    color: var(--primary);
     font-size: 1.1rem;
     filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
 }
@@ -184,18 +188,18 @@ body::before {
 .input-group input {
     width: 100%;
     padding: 18px 24px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--primary);
     border-radius: 16px;
     font-size: 1rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: rgba(255, 255, 255, 0.05);
-    color: #e0e0e0;
+    background: rgba(58,134,255,0.08);
+    color: var(--text-main);
     backdrop-filter: blur(10px);
 }
 
 .input-group input:focus {
     outline: none;
-    border-color: #00d4ff;
+    border-color: var(--secondary);
     background: rgba(0, 212, 255, 0.1);
     box-shadow: 
         0 0 0 4px rgba(0, 212, 255, 0.1),
@@ -228,7 +232,7 @@ body::before {
 }
 
 .toggle-password:hover {
-    color: #00d4ff;
+    color: var(--primary);
     background: rgba(0, 212, 255, 0.1);
     transform: translateY(-50%) scale(1.1);
 }
@@ -248,14 +252,14 @@ body::before {
 }
 
 .visual-indicator.valid {
-    background: linear-gradient(135deg, #00ff88, #00d4ff);
-    border-color: #00ff88;
+    background: var(--accent);
+    border-color: var(--accent);
     animation: techSuccess 0.6s ease;
     box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
 }
 
 .visual-indicator.invalid {
-    background: linear-gradient(135deg, #ff0080, #ff6b35);
+    background: #ff6b6b;
     border-color: #ff0080;
     animation: techError 0.6s ease;
     box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
@@ -289,12 +293,12 @@ body::before {
     gap: 12px;
     cursor: pointer;
     font-size: 0.9rem;
-    color: #a0a0a0;
+    color: var(--text-muted);
     transition: all 0.3s ease;
 }
 
 .checkbox-container:hover {
-    color: #e0e0e0;
+    color: var(--text-main);
 }
 
 .checkbox-container input[type="checkbox"] {
@@ -312,8 +316,8 @@ body::before {
 }
 
 .checkbox-container input[type="checkbox"]:checked + .checkmark {
-    background: linear-gradient(135deg, #00d4ff, #ff0080);
-    border-color: #00d4ff;
+    background: var(--primary);
+    border-color: var(--primary);
     box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
 }
 
@@ -329,7 +333,7 @@ body::before {
 }
 
 .forgot-password {
-    color: #00d4ff;
+    color: var(--primary);
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 600;
@@ -353,7 +357,7 @@ body::before {
 }
 
 .forgot-password:hover {
-    color: #ff0080;
+    color: var(--secondary);
     text-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
 }
 
@@ -361,9 +365,9 @@ body::before {
 .login-btn {
     width: 100%;
     padding: 18px;
-    background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
     background-size: 200% 200%;
-    color: white;
+    color: #fff;
     border: none;
     border-radius: 16px;
     font-size: 1.1rem;
@@ -380,6 +384,7 @@ body::before {
     text-transform: uppercase;
     letter-spacing: 1px;
     animation: gradientMove 3s ease infinite;
+    box-shadow: 0 4px 16px rgba(58,134,255,0.2);
 }
 
 @keyframes gradientMove {
@@ -407,6 +412,7 @@ body::before {
     box-shadow: 
         0 15px 35px rgba(0, 212, 255, 0.4),
         0 0 0 1px rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, var(--secondary), var(--primary), var(--accent));
 }
 
 .login-btn:active {
@@ -418,6 +424,7 @@ body::before {
     text-align: center;
     margin: 25px 0;
     position: relative;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
 }
 
 .divider::before {
@@ -431,9 +438,9 @@ body::before {
 }
 
 .divider span {
-    background: rgba(15, 15, 35, 0.8);
+    background: var(--background);
     padding: 0 20px;
-    color: #a0a0a0;
+    color: var(--text-muted);
     font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -450,10 +457,10 @@ body::before {
 
 .alt-login-btn {
     padding: 16px 24px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--primary);
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.05);
-    color: #e0e0e0;
+    background: rgba(26,26,46,0.8);
+    color: var(--primary);
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
@@ -483,10 +490,11 @@ body::before {
 }
 
 .alt-login-btn:hover {
-    border-color: #00d4ff;
-    background: rgba(0, 212, 255, 0.1);
+    border-color: var(--primary);
+    background: var(--primary);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
+    color: #fff;
 }
 
 .alt-login-btn.google:hover {
@@ -508,12 +516,12 @@ body::before {
 }
 
 .signup-link p {
-    color: #a0a0a0;
+    color: var(--text-muted);
     font-size: 0.9rem;
 }
 
 .signup-link a {
-    color: #00d4ff;
+    color: var(--primary);
     text-decoration: none;
     font-weight: 700;
     transition: all 0.3s ease;
@@ -536,7 +544,7 @@ body::before {
 }
 
 .signup-link a:hover {
-    color: #ff0080;
+    color: var(--secondary);
     text-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
 }
 
@@ -549,7 +557,7 @@ body::before {
 
 .accessibility-features h3 {
     text-align: center;
-    color: #e0e0e0;
+    color: var(--text-main);
     font-size: 1.2rem;
     margin-bottom: 20px;
     font-weight: 700;
@@ -571,7 +579,7 @@ body::before {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     font-size: 0.85rem;
-    color: #a0a0a0;
+    color: var(--text-muted);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
@@ -582,13 +590,32 @@ body::before {
     border-color: rgba(0, 212, 255, 0.3);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
-    color: #e0e0e0;
+    color: var(--text-main);
 }
 
 .feature i {
-    color: #00d4ff;
+    color: var(--primary);
     font-size: 1.1rem;
-    filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+    filter: drop-shadow(0 0 10px rgba(58,134,255,0.5));
+}
+
+/* Message Styles */
+.success-message {
+    background: var(--accent);
+    color: #23244d;
+    border: 1px solid var(--accent);
+}
+
+.error-message {
+    background: #ff6b6b;
+    color: #fff;
+    border: 1px solid #ff6b6b;
+}
+
+.info-message {
+    background: var(--primary);
+    color: #fff;
+    border: 1px solid var(--primary);
 }
 
 /* Background Elements - Replaced hands with tech elements */

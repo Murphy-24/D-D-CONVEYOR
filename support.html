@@ -30,35 +30,37 @@
     });
     </script>
     <style>
-        .support-card {
-            max-width: 600px;
-            margin: 60px auto 0 auto;
-            background: rgba(15, 15, 35, 0.92);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-            padding: 40px 32px 32px 32px;
-            position: relative;
-        }
-        .support-card h2 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 18px;
-        }
-        .support-card h3 {
-            color: #00d4ff;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-        .support-card form {
+/* Blue & Purple Tech Palette */
+:root {
+  --primary: #3a86ff;
+  --secondary: #8338ec;
+  --accent: #ffbe0b;
+  --background: #1a1a2e;
+  --text-main: #e0e0e0;
+  --text-muted: #a0a0a0;
+}
+
+.support-card {
+    background: rgba(26,26,46,0.92);
+    box-shadow: 0 8px 32px rgba(58,134,255,0.15);
+}
+
+.support-card h2 {
+    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.support-card h3 {
+    color: var(--primary);
+}
+
+.support-card form {
             margin-bottom: 24px;
         }
         .support-card label {
-            color: #fff;
+            color: var(--text-main);
             font-weight: 600;
             margin-bottom: 4px;
             display: block;
@@ -67,9 +69,9 @@
             width: 100%;
             padding: 10px 12px;
             border-radius: 8px;
-            border: 1.5px solid #00d4ff;
-            background: rgba(255,255,255,0.08);
-            color: #fff;
+            border: 1.5px solid var(--primary);
+            background: rgba(58,134,255,0.08);
+            color: var(--text-main);
             margin-bottom: 12px;
             font-size: 1rem;
         }
@@ -92,16 +94,16 @@
             margin-top: 30px;
         }
         .faq-section h3 {
-            color: #00ff88;
+            color: var(--accent);
             font-size: 1.2rem;
             font-weight: 700;
         }
         .faq-section p {
-            color: #e0e0e0;
+            color: var(--text-main);
         }
         .support-icon {
             font-size: 3.5rem;
-            color: #00d4ff;
+            color: var(--primary);
             margin-bottom: 18px;
             text-align: center;
         }
@@ -110,21 +112,20 @@
             align-items: center;
             gap: 8px;
             margin-bottom: 24px;
-            color: #00d4ff;
+            color: var(--primary);
             background: transparent;
-            border: 2px solid #00d4ff;
+            border: 2px solid var(--primary);
             border-radius: 8px;
             padding: 10px 22px;
             font-weight: 700;
             font-size: 1.1rem;
             text-decoration: none;
             box-shadow: none;
-            transition: background 0.2s, color 0.2s, border 0.2s;
+            transition: background 0.2s, color 0.2s;
         }
         .back-dashboard:hover {
-            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
+            background: var(--primary);
             color: #fff;
-            transform: translateY(-2px) scale(1.04);
         }
         #tsparticles {
           position: fixed;
