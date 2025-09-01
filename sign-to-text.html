@@ -3,413 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign to Text - Linguosign</title>
+    <title>Sign to Text - <span class="linguosign-logo">Linguosign</span></title>
     <link rel="stylesheet" href="src/dashboard.css">
     <link rel="icon" type="image/png" href="src/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #23244d 50%, #8338ec 100%);
             min-height: 100vh;
-            color: #e0e0e0;
-            line-height: 1.6;
-            position: relative;
-            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a1a2e 0%, #23244d 50%, #8338ec 100%);
         }
-
-        /* Background particles */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
+        
+        .container {
             width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
-            animation: backgroundShift 20s ease-in-out infinite;
-            z-index: 0;
-        }
-
-        @keyframes backgroundShift {
-            0%, 100% { transform: translateX(0) translateY(0); }
-            25% { transform: translateX(-10px) translateY(-10px); }
-            50% { transform: translateX(10px) translateY(-5px); }
-            75% { transform: translateX(-5px) translateY(10px); }
-        }
-
-        /* Header */
-        .page-header {
-            background: rgba(15, 15, 35, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
+        }
+        .main-sign2text {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: rgba(15, 15, 35, 0.85);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 40px 32px 32px 32px;
+        }
+        .header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 32px;
+            background: rgba(15, 15, 35, 0.9);
+            padding: 18px 24px;
+            border-radius: 18px;
+            width: 100%;
         }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-section img {
-            width: 40px;
-            height: 40px;
+        .header img {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: #fff;
+            object-fit: cover;
         }
-
-        .logo-text {
-            font-size: 1.5rem;
+        .header-title {
+            font-size: 2rem;
             font-weight: 700;
             background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: #a0a0a0;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-link:hover, .nav-link.active {
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
             color: #00d4ff;
-            background: rgba(0, 212, 255, 0.1);
-        }
-
-        .nav-link.logout { color: #ff6b35; }
-        .nav-link.logout:hover { color: #ff0080; background: rgba(255, 0, 128, 0.1); }
-
-        /* Main Content */
-        .main-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Stats tabs under header */
-        .stats-tabs {
-            width: 100%;
-            background: rgba(15, 15, 35, 0.85);
-            border: 1px solid rgba(0,212,255,0.08);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-            border-radius: 16px;
-            display: flex;
-            gap: 24px;
-            padding: 12px 18px;
-            margin-bottom: 28px;
-        }
-        .stats-tab {
-            color: #a0a0a0;
-            font-weight: 700;
             text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 10px;
-            transition: background 0.2s, color 0.2s;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s;
         }
-        .stats-tab.active, .stats-tab:hover {
-            color: #00d4ff;
-            background: rgba(0,212,255,0.10);
+        .back-link:hover {
+            color: #ff0080;
         }
-
-        /* Hero CTA */
-        .hero-cta {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 28px 0 36px 0;
-        }
-        .cta-btn {
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-            color: #fff;
-            font-weight: 800;
-            font-size: 1.4rem;
-            padding: 16px 28px;
-            border: none;
-            border-radius: 14px;
-            box-shadow: 0 10px 28px rgba(0,212,255,0.22);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            letter-spacing: 0.5px;
-        }
-        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,212,255,0.28); }
-
-        /* Section title */
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 160px;
-            height: 2px;
-            background: linear-gradient(90deg, #00d4ff, #ff0080);
-        }
-
-        /* Quick Actions */
-        .quick-actions { margin: 40px 0 50px 0; }
-        .quick-actions-grid {
+        .options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
         }
-        .quick-action-btn {
-            background: rgba(15, 15, 35, 0.8);
-            border: 2px solid transparent;
-            border-radius: 12px;
-            padding: 25px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: #fff;
+        .option-card {
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 32px 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+            min-height: 200px;
         }
-        .quick-action-btn:hover { border-color: #00d4ff; background: rgba(15, 15, 35, 0.9); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2); }
-        .quick-action-icon { font-size: 2rem; color: #00d4ff; }
-        .quick-action-text { font-weight: 600; font-size: 1rem; }
-
-        /* Recent Activity */
-        .recent-activity { margin-bottom: 50px; }
-        .activity-list { display: flex; flex-direction: column; gap: 15px; }
-        .activity-item { background: rgba(15, 15, 35, 0.8); border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; cursor: pointer; }
-        .activity-item:hover { background: rgba(15, 15, 35, 0.9); transform: translateX(5px); box-shadow: 0 4px 15px rgba(0, 212, 255, 0.1); }
-        .activity-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #fff; }
-        .activity-icon.camera { background: linear-gradient(135deg, #ff0080, #00d4ff); }
-        .activity-icon.lesson { background: linear-gradient(135deg, #ff6b35, #00ff88); }
-        .activity-content { flex: 1; }
-        .activity-title { font-weight: 600; color: #fff; margin-bottom: 5px; }
-        .activity-desc { color: #a0a0a0; font-size: 0.9rem; }
-        .activity-time { color: #666; font-size: 0.8rem; font-weight: 500; }
-
-        /* Communication Tools */
-        .communication-tools { margin-bottom: 50px; }
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
-        .tool-card { position: relative; overflow: hidden; background: rgba(15, 15, 35, 0.85); border-radius: 16px; padding: 30px; border: 2px solid transparent; transition: all 0.3s ease; cursor: pointer; }
-        .tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #00d4ff, #ff0080, #00ff88); }
-        .tool-card:hover { border-color: #00d4ff; background: rgba(15, 15, 35, 0.92); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2); }
-        .tool-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .tool-icon { width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; }
-        .tool-icon.camera { background: linear-gradient(135deg, #00d4ff, #0080ff); }
-        .tool-icon.keyboard { background: linear-gradient(135deg, #ff0080, #ff6b35); }
-        .tool-icon.learning { background: linear-gradient(135deg, #00ff88, #00d4ff); }
-        .tool-title { font-size: 1.3rem; font-weight: 700; color: #fff; }
-        .tool-desc { color: #a0a0a0; margin-bottom: 20px; line-height: 1.5; }
-        .tool-features { display: flex; gap: 15px; margin-bottom: 25px; }
-        .feature { display: flex; align-items: center; gap: 8px; color: #00d4ff; font-size: 0.9rem; font-weight: 500; }
-        .tool-btn { background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88); color: #fff; border: none; padding: 12px 25px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
-        .tool-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 212, 255, 0.3); }
-
-        /* Responsive */
+        .option-card:hover, .option-card.active {
+            border-color: #00d4ff;
+            box-shadow: 0 4px 16px rgba(0,212,255,0.08);
+            transform: translateY(-4px) scale(1.03);
+        }
+        .option-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            color: #00d4ff;
+        }
+        .option-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin-bottom: 6px;
+        }
+        .option-desc {
+            color: #a0a0a0;
+            font-size: 0.98rem;
+            text-align: center;
+        }
+        .placeholder-area {
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 40px 32px;
+            min-height: 200px;
+            color: #a0a0a0;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .upload-input {
+            display: none;
+        }
+        .upload-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 40px 32px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            min-height: 250px;
+        }
+        .upload-heading {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .upload-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 16px rgba(0,212,255,0.10);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .upload-label:hover {
+            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .upload-label i {
+            font-size: 1.3rem;
+        }
+        .video-preview, .image-preview {
+            margin: 12px auto 0 auto;
+            display: block;
+            max-width: 320px;
+            max-height: 200px;
+            border-radius: 12px;
+            background: #23234a;
+        }
         @media (max-width: 768px) {
-            .header-content { flex-direction: column; gap: 15px; }
-            .nav-links { gap: 15px; }
-            .quick-actions-grid { grid-template-columns: repeat(2, 1fr); }
-            .tools-grid { grid-template-columns: 1fr; }
-            .tool-features { flex-direction: column; gap: 10px; }
+            .main-sign2text { 
+                padding: 20px; 
+                margin: 10px;
+            }
+            .header-title { font-size: 1.3rem; }
+            .header { padding: 15px; }
+            .options {
+                grid-template-columns: 1fr;
+            }
         }
+        
         @media (max-width: 480px) {
-            .main-content { padding: 20px 10px; }
-            .quick-actions-grid { grid-template-columns: 1fr; }
-            .activity-item { flex-direction: column; text-align: center; }
+            .main-sign2text { 
+                padding: 15px; 
+                margin: 5px;
+            }
+            .header-title { font-size: 1.1rem; }
+            .header { padding: 10px; }
         }
     </style>
     <script src="https://kit.fontawesome.com/1c2e0b1b7a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="page-header">
-        <div class="header-content">
-            <div class="logo-section">
-                <img src="src/logo.png" alt="Linguosign Logo">
-                <span class="logo-text">Linguosign</span>
-            </div>
-            <nav class="nav-links">
-                <a href="dashboard.html" class="nav-link active"><i class="fas fa-home"></i> Dashboard</a>
-                <a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Profile</a>
-                <a href="#" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
-                <a href="index.html" class="nav-link logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </nav>
+    <div class="container">
+        <div class="header">
+            <img src="src/logo.png" alt="Linguosign Logo">
+            <span class="header-title"><span class="linguosign-logo">Linguosign</span> – Sign to Text</span>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <nav class="stats-tabs">
-            <a href="#" class="stats-tab active">SESSIONS</a>
-            <a href="#" class="stats-tab">SIGNS LEARNED</a>
-            <a href="#" class="stats-tab">ACCURACY</a>
-        </nav>
-
-        <div class="hero-cta">
-            <button class="cta-btn"><i class="fas fa-graduation-cap"></i> Start Learning</button>
+        <a href="dashboard.html" class="back-dashboard" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;color:#fff;background:linear-gradient(135deg,#00d4ff,#ff0080,#00ff88);border:none;border-radius:8px;padding:10px 22px;font-weight:700;font-size:1.1rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.12);transition:background 0.2s,transform 0.2s;"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        <div class="main-sign2text">
+            <div class="options">
+                <div class="option-card" id="webcamOption">
+                    <div class="option-icon"><i class="fas fa-video"></i></div>
+                    <div class="option-title">Use Webcam</div>
+                    <div class="option-desc">Capture live sign input using your webcam.</div>
+                </div>
+                <div class="option-card" id="uploadOption">
+                    <div class="option-icon"><i class="fas fa-upload"></i></div>
+                    <div class="option-title">Upload Image/Video</div>
+                    <div class="option-desc">Upload a photo or video of a sign for recognition.</div>
+                </div>
+            </div>
+            <div id="inputArea">
+                <div class="placeholder-area" id="placeholderArea">
+                    Select an option above to get started.<br>
+                    <span style="font-size:0.95rem; color:#666;">(Recognition coming soon!)</span>
+                </div>
+            </div>
+            <div id="resultArea" class="placeholder-area" style="display:none;">
+                <b>Recognized Text:</b> <span id="recognizedText">(Result will appear here)</span>
+            </div>
         </div>
-
-        <!-- Communication Tools -->
-        <section class="communication-tools">
-            <h2 class="section-title">Communication Tools</h2>
-            <div class="tools-grid">
-                <div class="tool-card" id="signToTextCard">
-                    <div class="tool-header">
-                        <div class="tool-icon camera"><i class="fas fa-camera"></i></div>
-                        <div class="tool-title">Sign to Text</div>
-                    </div>
-                    <div class="tool-desc">Use your camera to translate sign language into text in real-time.</div>
-                    <div class="tool-features">
-                        <div class="feature"><i class="fas fa-check"></i><span>Real-time</span></div>
-                        <div class="feature"><i class="fas fa-percentage"></i><span>95% Accuracy</span></div>
-                    </div>
-                    <button class="tool-btn">START <i class="fas fa-arrow-right"></i></button>
-                </div>
-
-                <div class="tool-card" id="textToSignCard">
-                    <div class="tool-header">
-                        <div class="tool-icon keyboard"><i class="fas fa-keyboard"></i></div>
-                        <div class="tool-title">Text to Sign</div>
-                    </div>
-                    <div class="tool-desc">Convert your text messages into animated sign language demonstrations.</div>
-                    <div class="tool-features">
-                        <div class="feature"><i class="fas fa-bolt"></i><span>Instant</span></div>
-                        <div class="feature"><i class="fas fa-cube"></i><span>3D Animation</span></div>
-                    </div>
-                    <button class="tool-btn" onclick="window.location.href='text-to-sign.html'">START <i class="fas fa-arrow-right"></i></button>
-                </div>
-
-                <div class="tool-card" id="learningModuleCard">
-                    <div class="tool-header">
-                        <div class="tool-icon learning"><i class="fas fa-graduation-cap"></i></div>
-                        <div class="tool-title">Learning Module</div>
-                    </div>
-                    <div class="tool-desc">Interactive lessons and practice sessions to master sign language.</div>
-                    <div class="tool-features">
-                        <div class="feature"><i class="fas fa-book"></i><span>50+ Lessons</span></div>
-                        <div class="feature"><i class="fas fa-star"></i><span>Beginner to Advanced</span></div>
-                    </div>
-                    <button class="tool-btn" onclick="window.location.href='learning.html'">START <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Quick Actions -->
-        <section class="quick-actions">
-            <h2 class="section-title">Quick Actions</h2>
-            <div class="quick-actions-grid">
-                <a href="#" class="quick-action-btn" id="recentSessions">
-                    <div class="quick-action-icon"><i class="fas fa-history"></i></div>
-                    <div class="quick-action-text">Recent Sessions</div>
-                </a>
-                <a href="#" class="quick-action-btn" id="progressReport">
-                    <div class="quick-action-icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="quick-action-text">Progress Report</div>
-                </a>
-                <a href="community.html" class="quick-action-btn">
-                    <div class="quick-action-icon"><i class="fas fa-users"></i></div>
-                    <div class="quick-action-text">Community</div>
-                </a>
-                <a href="support.html" class="quick-action-btn">
-                    <div class="quick-action-icon"><i class="fas fa-question-circle"></i></div>
-                    <div class="quick-action-text">Help & Support</div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Recent Activity -->
-        <section class="recent-activity">
-            <h2 class="section-title">Recent Activity</h2>
-            <div class="activity-list">
-                <div class="activity-item">
-                    <div class="activity-icon camera"><i class="fas fa-camera"></i></div>
-                    <div class="activity-content">
-                        <div class="activity-title">Sign to Text Session</div>
-                        <div class="activity-desc">Translated 15 signs with 92% accuracy</div>
-                    </div>
-                    <div class="activity-time">2 hours ago</div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon lesson"><i class="fas fa-graduation-cap"></i></div>
-                    <div class="activity-content">
-                        <div class="activity-title">Completed Lesson 12</div>
-                        <div class="activity-desc">Family & Relationships vocabulary</div>
-                    </div>
-                    <div class="activity-time">1 day ago</div>
-                </div>
-            </div>
-        </section>
-    </main>
-
+    </div>
     <script>
-        // Quick Actions functionality
-        document.getElementById('recentSessions').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Recent Sessions feature coming soon!');
-        });
-        document.getElementById('progressReport').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Progress Report feature coming soon!');
-        });
+        // Option switching logic
+        const webcamOption = document.getElementById('webcamOption');
+        const uploadOption = document.getElementById('uploadOption');
+        const inputArea = document.getElementById('inputArea');
+        const placeholderArea = document.getElementById('placeholderArea');
+        const resultArea = document.getElementById('resultArea');
+        const recognizedText = document.getElementById('recognizedText');
 
-        // Sign to Text card functionality
-        document.getElementById('signToTextCard').addEventListener('click', function() {
-            alert('Sign to Text recognition is now active! Upload an image or use webcam.');
+        webcamOption.addEventListener('click', () => {
+            webcamOption.classList.add('active');
+            uploadOption.classList.remove('active');
+            inputArea.innerHTML = `<div class='placeholder-area'>
+                <b>Webcam input coming soon!</b><br>
+                (This will allow you to use your webcam to recognize signs.)
+            </div>`;
+            resultArea.style.display = 'none';
         });
-
-        // Activity items click handlers
-        document.querySelectorAll('.activity-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const title = this.querySelector('.activity-title').textContent;
-                alert(`${title} - View details coming soon!`);
-            });
+        uploadOption.addEventListener('click', () => {
+            uploadOption.classList.add('active');
+            webcamOption.classList.remove('active');
+            inputArea.innerHTML = `
+                <div class='upload-section'>
+                    <div class='upload-heading'><i class='fas fa-upload'></i> Upload a Sign Image or Video</div>
+                    <label class='upload-label'>
+                        <i class='fas fa-file-upload'></i> Upload Image/Video
+                        <input type='file' class='upload-input' accept='image/*,video/*' onchange='showPreview(event)'>
+                    </label>
+                    <div id='previewArea'></div>
+                </div>
+                <div class='placeholder-area'>Recognition coming soon!</div>
+            `;
+            resultArea.style.display = 'none';
         });
+        // Preview logic for upload
+        window.showPreview = function(event) {
+            const file = event.target.files[0];
+            const previewArea = document.getElementById('previewArea');
+            if (!file) return;
+            if (file.type.startsWith('image/')) {
+                previewArea.innerHTML = `<img src='${URL.createObjectURL(file)}' class='image-preview'>`;
+            } else if (file.type.startsWith('video/')) {
+                previewArea.innerHTML = `<video src='${URL.createObjectURL(file)}' class='video-preview' controls></video>`;
+            } else {
+                previewArea.innerHTML = `<div style='color:#ff0080;'>Unsupported file type.</div>`;
+            }
+        }
     </script>
 </body>
 </html> 
