@@ -15,15 +15,23 @@
             border-radius: 24px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.25);
             padding: 40px 32px 32px 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
         }
         .header {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 16px;
             margin-bottom: 32px;
             background: rgba(15, 15, 35, 0.9);
             padding: 18px 24px;
             border-radius: 18px;
+            width: 100%;
+            text-align: center;
         }
         .header img {
             width: 48px;
@@ -117,12 +125,22 @@
             .main-text2sign { padding: 12px; }
             .header-title { font-size: 1.3rem; }
             .header { padding: 10px 8px; }
+            .container { padding: 10px; }
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
     <script src="https://kit.fontawesome.com/1c2e0b1b7a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;">
         <div class="header">
             <img src="src/logo.png" alt="Linguosign Logo">
             <span class="header-title"><span class="linguosign-logo">Linguosign</span> – Text to Sign</span>
