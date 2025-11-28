@@ -8,33 +8,52 @@
     <link rel="stylesheet" href="src/dashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
         :root {
-            --glass-border: rgba(255, 255, 255, 0.22);
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-highlight: rgba(255, 255, 255, 0.18);
-            --accent-cyan: #7ee9ff;
-            --accent-pink: #ff7ad1;
-            --accent-lime: #b8ffda;
+            --tech-bg: #010613;
+            --tech-surface: rgba(4, 12, 30, 0.78);
+            --tech-border: rgba(58, 141, 255, 0.45);
+            --tech-blue: #3a8dff;
+            --tech-cyan: #5ef0ff;
+            --tech-purple: #7b8bff;
+            --muted-text: rgba(232, 247, 255, 0.75);
+        }
+        * {
+            box-sizing: border-box;
         }
         body {
             margin: 0;
             font-family: 'Inter', sans-serif;
-            color: #f5f5f5;
-            background: radial-gradient(circle at 15% 20%, rgba(126, 233, 255, 0.2), transparent 40%),
-                        radial-gradient(circle at 80% 0%, rgba(255, 122, 209, 0.25), transparent 45%),
-                        #050610;
+            color: #f2f7ff;
+            background: radial-gradient(circle at 20% 20%, rgba(62, 149, 255, 0.25), transparent 55%),
+                        radial-gradient(circle at 80% 10%, rgba(94, 240, 255, 0.25), transparent 45%),
+                        var(--tech-bg);
             min-height: 100vh;
+        }
+        .glass-panel {
+            background: var(--tech-surface);
+            border: 1px solid var(--tech-border);
+            border-radius: 26px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(18px);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-panel::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(94,240,255,0.08), transparent 45%);
+            pointer-events: none;
         }
         .navbar-fixed {
             position: fixed;
             top: 0; left: 0; width: 100vw;
-            background: rgba(5, 6, 16, 0.55);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-            backdrop-filter: blur(18px);
+            background: rgba(1, 6, 19, 0.7);
+            border-bottom: 1px solid var(--tech-border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+            backdrop-filter: blur(16px);
             z-index: 1000;
         }
         .navbar-content {
@@ -57,7 +76,7 @@
         .navbar-title {
             font-size: 1.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            background: linear-gradient(135deg, var(--tech-cyan), var(--tech-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -80,157 +99,227 @@
         }
         .navbar-link.active, .navbar-link:hover {
             color: #fff;
-            border-color: rgba(255,255,255,0.35);
-            background: rgba(255,255,255,0.12);
+            border-color: rgba(94,240,255,0.6);
+            background: rgba(58,141,255,0.15);
         }
         .navbar-link.logout {
-            color: var(--accent-pink);
+            color: var(--tech-purple);
         }
         .navbar-link.logout:hover {
-            color: var(--accent-cyan);
-            background: rgba(255,255,255,0.12);
+            color: var(--tech-cyan);
         }
         .dashboard-main {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 120px 24px 40px 24px;
+            padding: 130px 5vw 70px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        .dashboard-hero {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
             gap: 40px;
+            align-items: center;
+            padding: 48px;
         }
-        @media (max-width: 900px) {
-            .dashboard-main { grid-template-columns: 1fr; padding-top: 100px; }
+        .hero-content h1 {
+            font-size: clamp(2.1rem, 4vw, 3rem);
+            margin: 0 0 16px;
         }
-        .dashboard-card {
-            background: rgba(5, 6, 16, 0.55);
-            border-radius: 24px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-            backdrop-filter: blur(24px);
-            padding: 40px 32px 32px 32px;
-            position: relative;
-            margin-bottom: 0;
-            transition: box-shadow 0.2s, transform 0.2s;
+        .hero-content p {
+            color: var(--muted-text);
+            margin: 0 0 24px;
+            font-size: 1.05rem;
         }
-        .dashboard-card:hover {
-            box-shadow: 0 35px 80px rgba(0,0,0,0.45);
-            transform: translateY(-4px) scale(1.02);
-        }
-        .dashboard-card h2 {
-            font-size: 2rem;
-            font-weight: 800;
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: 0.8rem;
+            color: var(--tech-cyan);
             margin-bottom: 12px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink), var(--accent-lime));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .dashboard-card p {
-            color: rgba(255,255,255,0.75);
-            font-size: 1.1rem;
-            margin-bottom: 18px;
         }
         .dashboard-actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 18px;
-            margin-top: 18px;
+            gap: 16px;
+            margin-bottom: 24px;
         }
         .dashboard-action-btn {
-            color: #fdfdfd;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255,255,255,0.25);
+            color: #dff6ff;
+            background: rgba(1, 12, 32, 0.45);
+            border: 1px solid rgba(94,240,255,0.6);
             border-radius: 999px;
-            padding: 14px 30px;
-            font-size: 1.1rem;
+            padding: 14px 28px;
+            font-size: 1rem;
             font-weight: 700;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.25);
-            transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border 0.2s;
+            letter-spacing: 0.02em;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 15px 30px rgba(6,20,50,0.7);
+            transition: transform 0.2s ease, border 0.2s ease, background 0.2s ease;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .dashboard-action-btn:hover {
-            background: rgba(255,255,255,0.18);
-            border-color: rgba(255,255,255,0.5);
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 25px 45px rgba(0,0,0,0.35);
+            background: linear-gradient(135deg, rgba(58,141,255,0.35), rgba(94,240,255,0.35));
+            border-color: rgba(94,240,255,0.9);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 35px rgba(10,30,55,0.8);
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+        }
+        .hero-stat {
+            border-radius: 18px;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(94,240,255,0.25);
+        }
+        .hero-stat .stat-value {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--tech-cyan);
+        }
+        .hero-stat .stat-label {
+            font-size: 0.85rem;
+            color: var(--muted-text);
+        }
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 260px;
+        }
+        .hero-visual .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(12px);
+        }
+        .orb.one {
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(58,141,255,0.5), transparent 65%);
+        }
+        .orb.two {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(94,240,255,0.4), transparent 60%);
+            transform: translate(60px, -40px);
+        }
+        .visual-card {
+            width: 260px;
+            height: 260px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+        }
+        .visual-card lottie-player {
+            width: 220px;
+            height: 220px;
+        }
+        .dashboard-modules {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .modules-header h2 {
+            margin: 0;
+            font-size: 1.6rem;
+        }
+        .modules-header p {
+            margin: 6px 0 0;
+            color: var(--muted-text);
         }
         .dashboard-quick {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin-top: 24px;
+            gap: 20px;
         }
         .dashboard-quick-card {
-            background: rgba(5, 6, 16, 0.45);
-            border-radius: 18px;
-            border: 1px solid rgba(255,255,255,0.12);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 20px 40px rgba(0,0,0,0.25);
-            backdrop-filter: blur(18px);
-            padding: 24px 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
-            transition: box-shadow 0.2s, transform 0.2s;
-            position: relative;
-        }
-        .dashboard-quick-card:hover {
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 25px 55px rgba(0,0,0,0.35);
-            transform: translateY(-4px) scale(1.03);
+            padding: 22px 20px;
+            border-radius: 20px;
         }
         .dashboard-quick-card .quick-icon {
-            font-size: 1.6rem;
-            color: var(--accent-cyan);
-            margin-bottom: 6px;
+            font-size: 1.4rem;
+            color: var(--tech-cyan);
+            margin-bottom: 8px;
         }
         .dashboard-quick-card .quick-title {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #fff;
+        }
+        .dashboard-quick-card .quick-copy {
+            margin: 4px 0 0;
+            color: var(--muted-text);
+            font-size: 0.95rem;
         }
         .dashboard-quick-card .quick-actions {
             display: flex;
             gap: 10px;
-            margin-top: 8px;
+            margin-top: 12px;
         }
         .dashboard-quick-card .quick-action {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid transparent;
-            color: var(--accent-lime);
-            font-size: 1.1rem;
+            background: rgba(6, 18, 42, 0.6);
+            border: 1px solid rgba(94,240,255,0.35);
+            color: #dff6ff;
+            font-size: 1rem;
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: background 0.2s, color 0.2s, border 0.2s;
+            padding: 6px 10px;
+            border-radius: 999px;
+            transition: background 0.2s ease, border 0.2s ease;
         }
         .dashboard-quick-card .quick-action:hover {
-            background: rgba(255,255,255,0.18);
-            border-color: rgba(255,255,255,0.4);
-            color: var(--accent-pink);
+            background: rgba(94,240,255,0.2);
+            border-color: rgba(94,240,255,0.9);
         }
-        .dashboard-chart {
-            width: 100%;
-            max-width: 420px;
-            margin: 0 auto 24px auto;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 18px;
-            padding: 18px 12px 12px 12px;
-            backdrop-filter: blur(14px);
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
         }
-        .dashboard-lottie {
-            width: 80px; height: 80px; margin: 0 auto 18px auto;
+        .insight-card {
+            padding: 28px;
+            border-radius: 24px;
         }
-        @media (max-width: 900px) {
-            .dashboard-main { grid-template-columns: 1fr; }
+        .insight-card h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+        .insight-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            color: var(--muted-text);
+        }
+        .insight-card li::before {
+            content: "•";
+            color: var(--tech-cyan);
+            margin-right: 8px;
+        }
+        @media (max-width: 1024px) {
+            .dashboard-hero {
+                grid-template-columns: 1fr;
+                padding: 32px;
+            }
+            .hero-visual {
+                order: -1;
+            }
         }
         @media (max-width: 600px) {
-            .navbar-content { padding: 12px 8px; }
-            .dashboard-main { padding: 90px 4vw 24px 4vw; }
-            .dashboard-card { padding: 24px 8px; }
+            .navbar-content { padding: 12px 18px; }
+            .dashboard-main { padding: 110px 6vw 40px; }
+            .dashboard-hero { padding: 24px; }
+            .dashboard-action-btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -250,90 +339,101 @@
                 </div>
                 </nav>
     <main class="dashboard-main">
-        <section class="dashboard-card">
-            <div class="dashboard-lottie">
-                <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_4kx2q32n.json" background="transparent" speed="1" loop autoplay></lottie-player>
+        <section class="dashboard-hero glass-panel">
+            <div class="hero-content">
+                <p class="eyebrow">Realtime Assist</p>
+                <h1>Welcome back, User!</h1>
+                <p>Spin up the right translation lane, monitor training streaks, and jump into community moments—all from one tech-blue command center.</p>
+                <div class="dashboard-actions">
+                    <button class="dashboard-action-btn" onclick="window.location.href='learning.html'"><i class="fas fa-graduation-cap"></i> Start Learning</button>
+                    <button class="dashboard-action-btn" onclick="window.location.href='sign-to-text.html'"><i class="fas fa-camera"></i> Sign to Text</button>
+                    <button class="dashboard-action-btn" onclick="window.location.href='text-to-sign.html'"><i class="fas fa-keyboard"></i> Text to Sign</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-value">24</span>
+                        <span class="stat-label">Active Sessions</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-value">156</span>
+                        <span class="stat-label">Signs Learned</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-value">89%</span>
+                        <span class="stat-label">Recognition Accuracy</span>
+                    </div>
+                </div>
             </div>
-                        <h2>Welcome back, User!</h2>
-            <p>Choose your communication method or start learning sign language.</p>
-            <div class="dashboard-chart">
-                <canvas id="statsChart"></canvas>
-                            </div>
-            <div class="dashboard-actions">
-                <button class="dashboard-action-btn" onclick="window.location.href='learning.html'"><i class="fas fa-graduation-cap"></i> Start Learning</button>
-                <button class="dashboard-action-btn" onclick="window.location.href='sign-to-text.html'"><i class="fas fa-camera"></i> Sign to Text</button>
-                <button class="dashboard-action-btn" onclick="window.location.href='text-to-sign.html'"><i class="fas fa-keyboard"></i> Text to Sign</button>
-                            </div>
+            <div class="hero-visual">
+                <div class="orb one"></div>
+                <div class="orb two"></div>
+                <div class="visual-card glass-panel">
+                    <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_4kx2q32n.json" background="transparent" speed="1" loop autoplay></lottie-player>
+                </div>
+            </div>
         </section>
-        <section>
+
+        <section class="dashboard-modules">
+            <div class="modules-header">
+                <h2>Mission Control</h2>
+                <p>Launch the tools you need most, track momentum, and keep support routes close.</p>
+            </div>
             <div class="dashboard-quick">
-                <div class="dashboard-quick-card">
+                <div class="dashboard-quick-card glass-panel">
                     <span class="quick-icon"><i class="fas fa-history"></i></span>
                     <span class="quick-title">Recent Sessions</span>
+                    <p class="quick-copy">Restore your last capture or duplicate a workflow.</p>
                     <div class="quick-actions">
                         <button class="quick-action" title="View"><i class="fas fa-eye"></i></button>
                         <button class="quick-action" title="Delete"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
-                <div class="dashboard-quick-card">
+                <div class="dashboard-quick-card glass-panel">
                     <span class="quick-icon"><i class="fas fa-chart-line"></i></span>
                     <span class="quick-title">Progress Report</span>
+                    <p class="quick-copy">Weekly digest of streaks, accuracy, and badges.</p>
                     <div class="quick-actions">
                         <button class="quick-action" title="View"><i class="fas fa-eye"></i></button>
                         <button class="quick-action" title="Edit"><i class="fas fa-edit"></i></button>
                     </div>
-                        </div>
-                <div class="dashboard-quick-card">
+                </div>
+                <div class="dashboard-quick-card glass-panel">
                     <span class="quick-icon"><i class="fas fa-users"></i></span>
                     <span class="quick-title">Community</span>
+                    <p class="quick-copy">Drop into live rooms or share a new pack.</p>
                     <div class="quick-actions">
                         <button class="quick-action" title="Go" onclick="window.location.href='community.html'"><i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
-                <div class="dashboard-quick-card">
+                <div class="dashboard-quick-card glass-panel">
                     <span class="quick-icon"><i class="fas fa-question-circle"></i></span>
                     <span class="quick-title">Help & Support</span>
+                    <p class="quick-copy">Ping an interpreter or open the playbook.</p>
                     <div class="quick-actions">
                         <button class="quick-action" title="Go" onclick="window.location.href='support.html'"><i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
             </div>
         </section>
+
+        <section class="insights-grid">
+            <div class="insight-card glass-panel">
+                <h3>Learning Radar</h3>
+                <ul>
+                    <li>3 new ASL packs unlocked today</li>
+                    <li>1:1 mentor sync scheduled for 18:00 UTC</li>
+                    <li>Accuracy trending +6% over last week</li>
+                </ul>
+            </div>
+            <div class="insight-card glass-panel">
+                <h3>Action Queue</h3>
+                <ul>
+                    <li>Review 4 queued session transcripts</li>
+                    <li>Update community spotlight assets</li>
+                    <li>Prep vocabulary check-in for Friday</li>
+                </ul>
+            </div>
+        </section>
     </main>
-    <script>
-    // Chart.js for stats
-    const ctx = document.getElementById('statsChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Sessions', 'Signs Learned', 'Accuracy'],
-            datasets: [{
-                data: [24, 156, 89],
-                backgroundColor: [
-                    'rgba(126,233,255,0.85)',
-                    'rgba(255,122,209,0.85)',
-                    'rgba(184,255,218,0.85)'
-                ],
-                borderWidth: 2,
-                borderColor: 'rgba(255,255,255,0.2)',
-                hoverOffset: 12
-            }]
-        },
-        options: {
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: '#e0e0e0',
-                        font: { size: 14, weight: 'bold' }
-                    }
-                }
-            },
-            cutout: '70%',
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
-    </script>
 </body>
 </html> 
