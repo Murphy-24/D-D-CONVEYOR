@@ -3,171 +3,639 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text to Sign - <span class="linguosign-logo">Linguosign</span></title>
-    <link rel="stylesheet" href="src/dashboard.css">
+    <title>Text to Sign - SignBridge</title>
     <link rel="icon" type="image/png" href="src/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .main-text2sign {
-            max-width: 700px;
-            margin: 48px auto;
-            background: rgba(15, 15, 35, 0.85);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-            padding: 40px 32px 32px 32px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 60vh;
+        :root {
+            --bg-deep: #0F172A;
+            --bg-midnight: rgba(30, 41, 59, 0.85);
+            --card-glass: rgba(30, 41, 59, 0.8);
+            --border-glass: rgba(99, 102, 241, 0.35);
+            --gradient-primary: linear-gradient(135deg, #6366F1, #3B82F6);
+            --gradient-accent: linear-gradient(135deg, #6366F1, #06B6D4, #EC4899);
+            --accent-cyan: #06B6D4;
+            --accent-blue: #3B82F6;
+            --accent-pink: #EC4899;
+            --accent-lime: #A3E635;
+            --accent-teal: #2DD4BF;
+            --accent-yellow: #FCD34D;
+            --text-primary: #FFFFFF;
+            --text-muted: #CBD5E1;
+            --violet-glow: rgba(91, 33, 182, 0.15);
         }
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 32px;
-            background: rgba(15, 15, 35, 0.9);
-            padding: 18px 24px;
-            border-radius: 18px;
-            width: 100%;
-            text-align: center;
+        * {
+            box-sizing: border-box;
         }
-        .header img {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .header-title {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 24px;
-            color: #00d4ff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: color 0.2s;
-        }
-        .back-link:hover {
-            color: #ff0080;
-        }
-        .input-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 32px;
-        }
-        .text-input {
-            width: 100%;
-            max-width: 420px;
-            padding: 16px 14px;
-            border-radius: 10px;
-            border: none;
-            font-size: 1.1rem;
-            background: rgba(255,255,255,0.08);
-            color: #e0e0e0;
-            margin-bottom: 18px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-        }
-        .convert-btn {
-            padding: 12px 32px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-            color: #fff;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0,212,255,0.10);
-            transition: background 0.2s, transform 0.2s;
-        }
-        .convert-btn:hover {
-            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
-            transform: translateY(-2px) scale(1.03);
-        }
-        .output-section {
-            background: rgba(255,255,255,0.04);
-            border-radius: 16px;
-            padding: 32px 20px;
-            min-height: 180px;
-            color: #a0a0a0;
-            text-align: center;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .placeholder-3d {
-            width: 180px;
-            height: 180px;
-            background: linear-gradient(135deg, #23234a 60%, #00d4ff 100%);
-            border-radius: 50%;
-            margin: 0 auto 12px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 2.5rem;
-            font-weight: 700;
-            box-shadow: 0 4px 24px rgba(0,212,255,0.10);
-        }
-        @media (max-width: 600px) {
-            .main-text2sign { padding: 12px; }
-            .header-title { font-size: 1.3rem; }
-            .header { padding: 10px 8px; }
-            .container { padding: 10px; }
-        }
-        
         body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(62, 149, 255, 0.15), transparent 55%),
+                        radial-gradient(circle at 80% 10%, rgba(94, 240, 255, 0.15), transparent 45%),
+                        var(--bg-deep);
+            color: var(--text-primary);
+        }
+        .navbar-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            background: rgba(1, 6, 19, 0.7);
+            border-bottom: 1px solid var(--border-glass);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+        }
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+            gap: 18px;
+        }
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .navbar-logo img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+        }
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        .breadcrumb a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover {
+            color: var(--text-primary);
+        }
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 120px 5vw 60px;
+        }
+        .page-header {
+            margin-bottom: 40px;
+        }
+        .page-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin: 0 0 12px 0;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+        .page-title::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), transparent);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-top: 12px;
+        }
+        .glass-card {
+            background: var(--card-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 28px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(18px);
+            padding: 40px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), transparent 45%);
+            pointer-events: none;
+        }
+        .glass-card > * {
+            position: relative;
+            z-index: 1;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(94, 240, 255, 0.3);
+            border-radius: 999px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            margin-bottom: 24px;
+        }
+        .back-btn:hover {
+            background: rgba(94, 240, 255, 0.15);
+            border-color: rgba(94, 240, 255, 0.6);
+            transform: translateX(-4px);
+        }
+        .input-section {
+            margin-bottom: 32px;
+        }
+        .input-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        .input-wrapper {
+            position: relative;
+        }
+        .text-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 20px 24px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid var(--border-glass);
+            border-radius: 20px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            transition: all 0.2s ease;
+            line-height: 1.6;
+        }
+        .text-input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1), 0 0 20px rgba(6, 182, 212, 0.2);
+        }
+        .input-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .char-count {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .clear-btn {
+            background: transparent;
+            border: 1px solid rgba(236, 72, 153, 0.4);
+            color: var(--accent-pink);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .clear-btn:hover {
+            background: rgba(236, 72, 153, 0.15);
+            border-color: rgba(236, 72, 153, 0.6);
+        }
+        .convert-btn {
+            min-height: 48px;
+            padding: 14px 40px;
+            background: var(--gradient-accent);
+            border: none;
+            border-radius: 999px;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4), 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .convert-btn:hover {
+            transform: scale(1.04) translateY(-2px);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.6), 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        .convert-btn:active {
+            transform: scale(0.98);
+        }
+        .convert-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .quick-examples {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .example-chip {
+            padding: 10px 20px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 999px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .example-chip:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.6);
+            transform: translateY(-2px);
+        }
+        .output-section {
+            margin-top: 32px;
+        }
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .output-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        .model-container {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 60px 40px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .model-placeholder {
+            width: 200px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.2));
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            margin-bottom: 24px;
+        }
+        .model-silhouette {
+            width: 80%;
+            height: 80%;
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.4) 0%, rgba(6, 182, 212, 0.4) 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+        }
+        .model-silhouette::before {
+            content: "";
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: 30%;
+            background: rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+        }
+        .model-silhouette::after {
+            content: "";
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 20%;
+            background: rgba(6, 182, 212, 0.3);
+            border-radius: 20px;
+        }
+        .loading-shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .loading-text {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-top: 16px;
+        }
+        .model-loaded {
+            display: none;
+        }
+        .model-loaded.active {
+            display: block;
+        }
+        .output-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .btn-secondary {
+            min-height: 48px;
+            padding: 12px 24px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(94, 240, 255, 0.4);
+            border-radius: 999px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-secondary:hover {
+            background: rgba(94, 240, 255, 0.15);
+            border-color: rgba(94, 240, 255, 0.7);
+        }
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: var(--card-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 16px 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(18px);
+            display: none;
+            z-index: 2000;
+            animation: slideUp 0.3s ease;
+        }
+        .toast.active {
+            display: block;
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 100px 4vw 40px;
+            }
+            .glass-card {
+                padding: 24px;
+            }
+            .model-container {
+                padding: 40px 20px;
+                min-height: 300px;
+            }
+            .model-placeholder {
+                width: 150px;
+                height: 220px;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
-    <script src="https://kit.fontawesome.com/1c2e0b1b7a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;">
-        <div class="header">
-            <img src="src/logo.png" alt="Linguosign Logo">
-            <span class="header-title"><span class="linguosign-logo">Linguosign</span> – Text to Sign</span>
+    <nav class="navbar-fixed">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <img src="src/logo.png" alt="SignBridge Logo" />
+                <span class="navbar-title">SignBridge</span>
+            </div>
         </div>
-        <a href="dashboard.html" class="back-dashboard" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;color:#fff;background:linear-gradient(135deg,#00d4ff,#ff0080,#00ff88);border:none;border-radius:8px;padding:10px 22px;font-weight:700;font-size:1.1rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.12);transition:background 0.2s,transform 0.2s;"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
-        <div class="main-text2sign">
+    </nav>
+
+    <main class="main-container">
+        <a href="dashboard.html" class="back-btn" aria-label="Back to dashboard">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+
+        <div class="breadcrumb">
+            <a href="dashboard.html">Dashboard</a>
+            <span>/</span>
+            <span>Text to Sign</span>
+        </div>
+
+        <div class="page-header">
+            <h1 class="page-title">Text to Sign</h1>
+            <p class="page-subtitle">Convert your text into animated sign language</p>
+        </div>
+
+        <div class="glass-card">
             <div class="input-section">
-                <textarea class="text-input" id="textInput" rows="3" placeholder="Type your message here..."></textarea>
-                <button class="convert-btn" onclick="convertTextToSign()"><i class="fas fa-sign-language"></i> Convert</button>
+                <label for="textInput" class="input-label">Enter your text</label>
+                <div class="input-wrapper">
+                    <textarea 
+                        id="textInput" 
+                        class="text-input" 
+                        placeholder="Type your message here..."
+                        rows="4"
+                        aria-label="Text input for conversion"
+                    ></textarea>
+                </div>
+                <div class="input-actions">
+                    <div>
+                        <span class="char-count" id="charCount">0 characters</span>
+                    </div>
+                    <button class="clear-btn" id="clearBtn" aria-label="Clear input">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+                <div class="quick-examples">
+                    <span style="color: var(--text-muted); font-size: 0.9rem; margin-right: 8px;">Quick examples:</span>
+                    <button class="example-chip" data-example="Hello" aria-label="Fill example: Hello">Hello</button>
+                    <button class="example-chip" data-example="Thank you" aria-label="Fill example: Thank you">Thank you</button>
+                    <button class="example-chip" data-example="I need help" aria-label="Fill example: I need help">I need help</button>
+                </div>
+                <div style="text-align: center; margin-top: 28px;">
+                    <button class="convert-btn" id="convertBtn" aria-label="Convert text to sign">
+                        <i class="fas fa-sign-language"></i> Convert to Sign
+                    </button>
+                </div>
             </div>
-            <div class="output-section" id="outputSection">
-                <div class="placeholder-3d"><i class="fas fa-user"></i></div>
-                <div id="signOutput">3D animated sign output will appear here.<br><span style='font-size:0.95rem; color:#666;'>(Feature coming soon!)</span></div>
+
+            <div class="output-section">
+                <div class="output-header">
+                    <h3 class="output-title">3D Sign Animation</h3>
+                </div>
+                <div class="model-container" id="modelContainer">
+                    <div class="model-placeholder" id="modelPlaceholder">
+                        <div class="model-silhouette"></div>
+                    </div>
+                    <p class="loading-text" id="loadingText">Model loading...</p>
+                </div>
+                <div class="model-loaded" id="modelLoaded">
+                    <div class="model-container">
+                        <div class="model-placeholder">
+                            <div class="model-silhouette"></div>
+                        </div>
+                        <p style="color: var(--text-muted); margin-top: 16px;">3D animated sign will appear here</p>
+                    </div>
+                </div>
+                <div class="output-actions" id="outputActions" style="display: none;">
+                    <button class="btn-secondary" id="replayBtn" aria-label="Replay animation">
+                        <i class="fas fa-redo"></i> Replay
+                    </button>
+                    <button class="btn-secondary" id="downloadBtn" aria-label="Download animation">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
     <script>
-        function convertTextToSign() {
-            const text = document.getElementById('textInput').value.trim();
-            const signOutput = document.getElementById('signOutput');
+        const textInput = document.getElementById('textInput');
+        const charCount = document.getElementById('charCount');
+        const clearBtn = document.getElementById('clearBtn');
+        const convertBtn = document.getElementById('convertBtn');
+        const exampleChips = document.querySelectorAll('.example-chip');
+        const modelContainer = document.getElementById('modelContainer');
+        const modelPlaceholder = document.getElementById('modelPlaceholder');
+        const loadingText = document.getElementById('loadingText');
+        const modelLoaded = document.getElementById('modelLoaded');
+        const outputActions = document.getElementById('outputActions');
+
+        // Character count
+        textInput.addEventListener('input', () => {
+            const count = textInput.value.length;
+            charCount.textContent = `${count} character${count !== 1 ? 's' : ''}`;
+            convertBtn.disabled = count === 0;
+        });
+
+        // Clear button
+        clearBtn.addEventListener('click', () => {
+            textInput.value = '';
+            textInput.focus();
+            charCount.textContent = '0 characters';
+            convertBtn.disabled = true;
+            modelLoaded.classList.remove('active');
+            outputActions.style.display = 'none';
+            loadingText.textContent = 'Model loading...';
+        });
+
+        // Example chips
+        exampleChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                const example = chip.dataset.example;
+                textInput.value = example;
+                textInput.focus();
+                charCount.textContent = `${example.length} character${example.length !== 1 ? 's' : ''}`;
+                convertBtn.disabled = false;
+            });
+        });
+
+        // Convert button
+        convertBtn.addEventListener('click', () => {
+            const text = textInput.value.trim();
             if (!text) {
-                signOutput.innerHTML = "Please enter some text to convert.";
+                showToast('Please enter some text to convert.');
                 return;
             }
-            // Placeholder: Simulate conversion
-            signOutput.innerHTML = `<b>Input:</b> ${text}<br><br><span style='color:#00d4ff;'>[3D Sign Animation Placeholder]</span>`;
+
+            // Show loading state
+            modelPlaceholder.classList.add('loading-shimmer');
+            loadingText.textContent = 'Processing...';
+            convertBtn.disabled = true;
+
+            // Simulate processing
+            setTimeout(() => {
+                modelPlaceholder.classList.remove('loading-shimmer');
+                loadingText.textContent = 'Animation ready!';
+                
+                setTimeout(() => {
+                    modelContainer.style.display = 'none';
+                    modelLoaded.classList.add('active');
+                    outputActions.style.display = 'flex';
+                    convertBtn.disabled = false;
+                    showToast('Sign animation generated successfully!');
+                }, 500);
+            }, 2000);
+        });
+
+        // Replay button
+        document.getElementById('replayBtn')?.addEventListener('click', () => {
+            modelLoaded.classList.remove('active');
+            modelContainer.style.display = 'flex';
+            loadingText.textContent = 'Replaying animation...';
+            
+            setTimeout(() => {
+                loadingText.textContent = 'Animation ready!';
+                setTimeout(() => {
+                    modelContainer.style.display = 'none';
+                    modelLoaded.classList.add('active');
+                }, 500);
+            }, 1500);
+        });
+
+        // Download button
+        document.getElementById('downloadBtn')?.addEventListener('click', () => {
+            showToast('Download feature coming soon!');
+        });
+
+        // Toast notifications
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
         }
+
+        // Enter key to convert (Ctrl/Cmd + Enter)
+        textInput.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                if (!convertBtn.disabled) {
+                    convertBtn.click();
+                }
+            }
+        });
     </script>
 </body>
-</html> 
+</html>
