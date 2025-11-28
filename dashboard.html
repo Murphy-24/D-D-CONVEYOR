@@ -63,6 +63,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 16px 32px;
+            gap: 18px;
         }
         .navbar-logo {
             display: flex;
@@ -81,9 +82,14 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
         .navbar-links {
             display: flex;
-            gap: 24px;
+            gap: 18px;
         }
         .navbar-link {
             color: rgba(255,255,255,0.7);
@@ -111,10 +117,116 @@
         .dashboard-main {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 130px 5vw 70px;
+            padding: 130px 5vw 110px;
             display: flex;
             flex-direction: column;
             gap: 32px;
+        }
+        .top-search {
+            margin-top: 82px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .search-bar {
+            flex: 1;
+            min-width: 260px;
+            height: 56px;
+            border-radius: 999px;
+            border: 1px solid rgba(99,102,241,0.4);
+            background: rgba(15,23,42,0.85);
+            color: var(--text-primary);
+            padding: 0 22px 0 52px;
+            font-size: 1rem;
+            position: relative;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+        }
+        .search-wrapper i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        .quick-strip {
+            display: flex;
+            gap: 12px;
+        }
+        .quick-strip button {
+            background: rgba(99,102,241,0.12);
+            border: 1px solid rgba(99,102,241,0.4);
+            color: var(--text-primary);
+            padding: 10px 18px;
+            border-radius: 999px;
+            cursor: pointer;
+        }
+        .toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(94,240,255,0.3);
+            background: rgba(255,255,255,0.04);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .notification-pill {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            position: relative;
+        }
+        .notification-pill::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-pink);
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            70% { transform: scale(2); opacity: 0; }
+            100% { opacity: 0; }
+        }
+        .status-chips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+        }
+        .status-chip {
+            padding: 16px 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.02);
+        }
+        .status-chip span {
+            display: block;
+        }
+        .status-chip .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .status-chip .value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-lime);
         }
         .dashboard-hero {
             display: grid;
@@ -288,6 +400,135 @@
             padding: 28px;
             border-radius: 24px;
         }
+        .daily-goal-card {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .goal-bar {
+            width: 100%;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            overflow: hidden;
+        }
+        .goal-bar span {
+            display: block;
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg,#6366F1,#3B82F6);
+        }
+        .ai-coach-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .ai-coach-item {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 12px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.03);
+        }
+        .ai-coach-item i {
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+        }
+        .ai-coach-item button {
+            margin-left: auto;
+            background: transparent;
+            border: 1px solid rgba(94,240,255,0.4);
+            color: var(--accent-cyan);
+            border-radius: 999px;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+        .achievements-strip {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+        }
+        .achievement-badge {
+            min-width: 160px;
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(99,102,241,0.2);
+        }
+        .achievement-badge strong {
+            display: block;
+            margin-top: 8px;
+        }
+        .sticky-tray {
+            position: sticky;
+            bottom: 24px;
+            display: flex;
+            justify-content: center;
+            z-index: 20;
+        }
+        .sticky-tray .tray-content {
+            display: flex;
+            gap: 18px;
+            background: rgba(2,8,23,0.85);
+            border: 1px solid rgba(94,240,255,0.2);
+            border-radius: 60px;
+            padding: 12px 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+        }
+        .tray-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border-radius: 999px;
+            border: 1px solid rgba(94,240,255,0.4);
+            background: rgba(15,23,42,0.6);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .fab-camera {
+            position: fixed;
+            right: 32px;
+            bottom: 110px;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg,#6366F1,#3B82F6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            box-shadow: 0 20px 35px rgba(59,130,246,0.45);
+            cursor: pointer;
+            z-index: 30;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(2,8,23,0.95);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: none;
+            justify-content: space-around;
+            padding: 10px 0 14px;
+            z-index: 25;
+        }
+        .bottom-nav button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
         .insight-card h3 {
             margin-top: 0;
             margin-bottom: 12px;
@@ -317,9 +558,12 @@
         }
         @media (max-width: 600px) {
             .navbar-content { padding: 12px 18px; }
-            .dashboard-main { padding: 110px 6vw 40px; }
+            .dashboard-main { padding: 110px 6vw 120px; }
             .dashboard-hero { padding: 24px; }
             .dashboard-action-btn { width: 100%; justify-content: center; }
+            .sticky-tray { display: none; }
+            .fab-camera { bottom: 90px; right: 20px; }
+            .bottom-nav { display: flex; }
         }
     </style>
 </head>
@@ -328,17 +572,32 @@
         <div class="navbar-content">
             <div class="navbar-logo">
                 <img src="src/logo.png" alt="Linguosign Logo" />
-                <span class="navbar-title">Linguosign Dashboard</span>
+                <span class="navbar-title">SignBridge Command</span>
             </div>
             <div class="navbar-links">
                 <a href="dashboard.html" class="navbar-link active"><i class="fas fa-home"></i> Dashboard</a>
-                <a href="profile.html" class="navbar-link"><i class="fas fa-user"></i> Profile</a>
-                <a href="#" class="navbar-link"><i class="fas fa-cog"></i> Settings</a>
-                <a href="index.html" class="navbar-link logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="community.html" class="navbar-link"><i class="fas fa-users"></i> Community</a>
+                <a href="learning.html" class="navbar-link"><i class="fas fa-book"></i> Learn</a>
             </div>
-                </div>
-                </nav>
+            <div class="navbar-actions">
+                <button class="toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i> Theme</button>
+                <button class="toggle" aria-label="Toggle voiceover"><i class="fas fa-volume-up"></i> Voice</button>
+                <button class="notification-pill" aria-label="Notifications"><i class="fas fa-bell"></i></button>
+            </div>
+        </div>
+    </nav>
     <main class="dashboard-main">
+        <section class="top-search">
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input class="search-bar" type="search" placeholder="Search lessons, sessions, community..." aria-label="Search dashboard">
+            </div>
+            <div class="quick-strip">
+                <button>All</button>
+                <button>Learning</button>
+                <button>Community</button>
+            </div>
+        </section>
         <section class="dashboard-hero glass-panel">
             <div class="hero-content">
                 <p class="eyebrow">Realtime Assist</p>
@@ -363,6 +622,16 @@
                         <span class="stat-label">Recognition Accuracy</span>
                     </div>
                 </div>
+                <div class="hero-continuation glass-panel" style="padding:20px;border-radius:20px;margin-top:18px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                        <div>
+                            <strong>Continue where you left off</strong>
+                            <p style="margin:6px 0 0;color:var(--text-muted);">Lesson 5 · Conversational greetings</p>
+                        </div>
+                        <button class="dashboard-action-btn" style="padding:10px 18px;font-size:0.9rem;"><i class="fas fa-play"></i> Resume</button>
+                    </div>
+                    <div class="goal-bar" style="margin-top:14px;"><span style="width:68%;"></span></div>
+                </div>
             </div>
             <div class="hero-visual">
                 <div class="orb one"></div>
@@ -370,6 +639,25 @@
                 <div class="visual-card glass-panel">
                     <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_4kx2q32n.json" background="transparent" speed="1" loop autoplay></lottie-player>
                 </div>
+            </div>
+        </section>
+
+        <section class="status-chips">
+            <div class="status-chip">
+                <span class="label">Recognition Accuracy</span>
+                <span class="value">89%</span>
+            </div>
+            <div class="status-chip" style="color:#06B6D4;">
+                <span class="label">XP Today</span>
+                <span class="value">+420</span>
+            </div>
+            <div class="status-chip" style="color:var(--accent-teal);">
+                <span class="label">Community Kudos</span>
+                <span class="value">36</span>
+            </div>
+            <div class="status-chip" style="color:var(--accent-yellow);">
+                <span class="label">Practice Minutes</span>
+                <span class="value">48</span>
             </div>
         </section>
 
@@ -417,23 +705,77 @@
         </section>
 
         <section class="insights-grid">
-            <div class="insight-card glass-panel">
-                <h3>Learning Radar</h3>
-                <ul>
-                    <li>3 new ASL packs unlocked today</li>
-                    <li>1:1 mentor sync scheduled for 18:00 UTC</li>
-                    <li>Accuracy trending +6% over last week</li>
-                </ul>
+            <div class="insight-card glass-panel daily-goal-card">
+                <h3>Daily Goal</h3>
+                <p style="color:var(--text-muted);">Finish 3 practice sessions · 2/3 complete</p>
+                <div class="goal-bar"><span style="width:66%;"></span></div>
+                <button class="dashboard-action-btn" style="width:max-content;padding:10px 20px;font-size:0.9rem;">Finish Goal</button>
             </div>
             <div class="insight-card glass-panel">
-                <h3>Action Queue</h3>
-                <ul>
-                    <li>Review 4 queued session transcripts</li>
-                    <li>Update community spotlight assets</li>
-                    <li>Prep vocabulary check-in for Friday</li>
-                </ul>
+                <h3>AI Coach Suggestions</h3>
+                <div class="ai-coach-list">
+                    <div class="ai-coach-item">
+                        <i class="fas fa-magic"></i>
+                        <div>
+                            <strong>Practice facial expressions</strong>
+                            <p style="margin:4px 0 0; color: var(--text-muted);">Boost comprehension in live calls.</p>
+                        </div>
+                        <button>Start</button>
+                    </div>
+                    <div class="ai-coach-item">
+                        <i class="fas fa-hands"></i>
+                        <div>
+                            <strong>Review ASL alphabet</strong>
+                            <p style="margin:4px 0 0; color: var(--text-muted);">Quick 5-minute refresher.</p>
+                        </div>
+                        <button>Go</button>
+                    </div>
+                    <div class="ai-coach-item">
+                        <i class="fas fa-comments"></i>
+                        <div>
+                            <strong>Join community check-in</strong>
+                            <p style="margin:4px 0 0; color: var(--text-muted);">Tonight at 7pm.</p>
+                        </div>
+                        <button>RSVP</button>
+                    </div>
+                </div>
+            </div>
+            <div class="insight-card glass-panel">
+                <h3>Recent Achievements</h3>
+                <div class="achievements-strip">
+                    <div class="achievement-badge">
+                        <i class="fas fa-trophy"></i>
+                        <strong>7-Day Streak</strong>
+                        <span>Unlocked today</span>
+                    </div>
+                    <div class="achievement-badge">
+                        <i class="fas fa-star"></i>
+                        <strong>Accuracy 90%</strong>
+                        <span>2 hrs ago</span>
+                    </div>
+                    <div class="achievement-badge">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <strong>Community Helper</strong>
+                        <span>Yesterday</span>
+                    </div>
+                </div>
             </div>
         </section>
+        <div class="sticky-tray">
+            <div class="tray-content">
+                <button class="tray-btn"><i class="fas fa-graduation-cap"></i> Start Learning</button>
+                <button class="tray-btn"><i class="fas fa-camera"></i> Sign to Text</button>
+                <button class="tray-btn"><i class="fas fa-keyboard"></i> Text to Sign</button>
+            </div>
+        </div>
     </main>
+    <button class="fab-camera" aria-label="Quick Sign Camera"><i class="fas fa-video"></i></button>
+    <div class="bottom-nav">
+        <button><i class="fas fa-home"></i>Home</button>
+        <button><i class="fas fa-book"></i>Learn</button>
+        <button><i class="fas fa-camera"></i>Camera</button>
+        <button><i class="fas fa-users"></i>Community</button>
+        <button><i class="fas fa-user"></i>Profile</button>
+    </div>
 </body>
 </html> 
