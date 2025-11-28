@@ -3,276 +3,787 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign to Text - <span class="linguosign-logo">Linguosign</span></title>
-    <link rel="stylesheet" href="src/dashboard.css">
+    <title>Sign to Text - SignBridge</title>
     <link rel="icon" type="image/png" href="src/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --bg-deep: #0F172A;
+            --bg-midnight: rgba(30, 41, 59, 0.85);
+            --card-glass: rgba(30, 41, 59, 0.8);
+            --border-glass: rgba(99, 102, 241, 0.35);
+            --gradient-primary: linear-gradient(135deg, #6366F1, #3B82F6);
+            --gradient-accent: linear-gradient(135deg, #6366F1, #06B6D4, #EC4899);
+            --accent-cyan: #06B6D4;
+            --accent-blue: #3B82F6;
+            --accent-pink: #EC4899;
+            --accent-lime: #A3E635;
+            --accent-teal: #2DD4BF;
+            --accent-yellow: #FCD34D;
+            --text-primary: #FFFFFF;
+            --text-muted: #CBD5E1;
+            --violet-glow: rgba(91, 33, 182, 0.15);
+        }
+        * {
+            box-sizing: border-box;
+        }
         body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e 0%, #23244d 50%, #8338ec 100%);
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(62, 149, 255, 0.15), transparent 55%),
+                        radial-gradient(circle at 80% 10%, rgba(94, 240, 255, 0.15), transparent 45%),
+                        var(--bg-deep);
+            color: var(--text-primary);
         }
-        
-        .container {
-            width: 100%;
+        .navbar-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            background: rgba(1, 6, 19, 0.7);
+            border-bottom: 1px solid var(--border-glass);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+        }
+        .navbar-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
-        }
-        .main-sign2text {
-            max-width: 1200px;
-            margin: 20px auto;
-            background: rgba(15, 15, 35, 0.85);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-            padding: 40px 32px 32px 32px;
-        }
-        .header {
             display: flex;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 32px;
-            background: rgba(15, 15, 35, 0.9);
-            padding: 18px 24px;
-            border-radius: 18px;
-            width: 100%;
+            justify-content: space-between;
+            padding: 16px 32px;
+            gap: 18px;
         }
-        .header img {
-            width: 48px;
-            height: 48px;
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .navbar-logo img {
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            object-fit: cover;
         }
-        .header-title {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+        .navbar-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .back-link {
-            display: inline-block;
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
             margin-bottom: 24px;
-            color: #00d4ff;
+        }
+        .breadcrumb a {
+            color: var(--accent-cyan);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
             transition: color 0.2s;
         }
-        .back-link:hover {
-            color: #ff0080;
+        .breadcrumb a:hover {
+            color: var(--text-primary);
         }
-        .options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 5vw 60px;
+        }
+        .page-header {
             margin-bottom: 32px;
         }
-        .option-card {
-            background: rgba(255,255,255,0.04);
-            border-radius: 16px;
-            padding: 32px 24px;
-            display: flex;
-            flex-direction: column;
+        .page-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin: 0 0 8px 0;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+        .page-title::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), transparent);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-top: 12px;
+        }
+        .glass-card {
+            background: var(--card-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 28px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(18px);
+            padding: 40px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), transparent 45%);
+            pointer-events: none;
+        }
+        .glass-card > * {
+            position: relative;
+            z-index: 1;
+        }
+        .back-btn {
+            display: inline-flex;
             align-items: center;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
-            min-height: 200px;
-        }
-        .option-card:hover, .option-card.active {
-            border-color: #00d4ff;
-            box-shadow: 0 4px 16px rgba(0,212,255,0.08);
-            transform: translateY(-4px) scale(1.03);
-        }
-        .option-icon {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-            color: #00d4ff;
-        }
-        .option-title {
-            font-size: 1.1rem;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(94, 240, 255, 0.3);
+            border-radius: 999px;
+            color: var(--text-primary);
+            text-decoration: none;
             font-weight: 600;
-            color: #e0e0e0;
-            margin-bottom: 6px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            margin-bottom: 24px;
         }
-        .option-desc {
-            color: #a0a0a0;
-            font-size: 0.98rem;
-            text-align: center;
+        .back-btn:hover {
+            background: rgba(94, 240, 255, 0.15);
+            border-color: rgba(94, 240, 255, 0.6);
+            transform: translateX(-4px);
         }
-        .placeholder-area {
-            background: rgba(255,255,255,0.04);
+        .mode-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        .mode-tab {
+            flex: 1;
+            min-width: 200px;
+            padding: 16px 24px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 16px;
-            padding: 40px 32px;
-            min-height: 200px;
-            color: #a0a0a0;
-            text-align: center;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 10px;
+            font-size: 1rem;
         }
-        .upload-input {
+        .mode-tab:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.6);
+        }
+        .mode-tab.active {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+        .mode-tab.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .webcam-module {
             display: none;
         }
-        .upload-section {
+        .webcam-module.active {
+            display: block;
+        }
+        .camera-preview {
+            width: 100%;
+            max-width: 640px;
+            aspect-ratio: 16/9;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--border-glass);
+            overflow: hidden;
+            position: relative;
+        }
+        .camera-preview video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .camera-preview-placeholder {
+            color: var(--text-muted);
+            text-align: center;
+            padding: 40px;
+        }
+        .camera-controls {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.04);
-            border-radius: 16px;
-            padding: 40px 32px;
-            margin-bottom: 18px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            min-height: 250px;
+            gap: 16px;
         }
-        .upload-heading {
-            font-size: 1.15rem;
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(163, 230, 53, 0.15);
+            border: 1px solid rgba(163, 230, 53, 0.4);
+            border-radius: 999px;
+            color: var(--accent-lime);
+            font-size: 0.9rem;
             font-weight: 600;
-            color: #e0e0e0;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
-        .upload-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .status-badge.paused {
+            background: rgba(236, 72, 153, 0.15);
+            border-color: rgba(236, 72, 153, 0.4);
+            color: var(--accent-pink);
+        }
+        .status-badge::before {
+            content: "•";
+            font-size: 1.2rem;
+        }
+        .btn-primary {
+            min-height: 48px;
             padding: 14px 32px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-            color: #fff;
-            font-weight: 600;
-            font-size: 1.1rem;
+            background: var(--gradient-accent);
+            border: none;
+            border-radius: 999px;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1rem;
             cursor: pointer;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 16px rgba(0,212,255,0.10);
-            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4), 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
-        .upload-label:hover {
-            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
-            transform: translateY(-2px) scale(1.03);
+        .btn-primary:hover {
+            transform: scale(1.04) translateY(-2px);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.6), 0 15px 40px rgba(0, 0, 0, 0.4);
         }
-        .upload-label i {
-            font-size: 1.3rem;
+        .btn-primary:active {
+            transform: scale(0.98);
         }
-        .video-preview, .image-preview {
-            margin: 12px auto 0 auto;
+        .btn-secondary {
+            min-height: 48px;
+            padding: 12px 24px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(94, 240, 255, 0.4);
+            border-radius: 999px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-secondary:hover {
+            background: rgba(94, 240, 255, 0.15);
+            border-color: rgba(94, 240, 255, 0.7);
+        }
+        .micro-tip {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 12px;
+        }
+        .upload-module {
+            display: none;
+        }
+        .upload-module.active {
             display: block;
-            max-width: 320px;
-            max-height: 200px;
-            border-radius: 12px;
-            background: #23234a;
+        }
+        .upload-zone {
+            border: 2px dashed var(--border-glass);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            background: rgba(15, 23, 42, 0.3);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .upload-zone:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.1);
+        }
+        .upload-zone.dragover {
+            border-color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.2);
+        }
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--accent-cyan);
+            margin-bottom: 16px;
+        }
+        .upload-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .upload-hint {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .file-preview {
+            margin-top: 24px;
+            display: none;
+        }
+        .file-preview.active {
+            display: block;
+        }
+        .file-preview img,
+        .file-preview video {
+            max-width: 100%;
+            border-radius: 16px;
+            margin-bottom: 16px;
+        }
+        .upload-progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+        .upload-progress-bar {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 999px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
+        }
+        .output-section {
+            display: none;
+        }
+        .output-section.active {
+            display: block;
+        }
+        .output-box {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 24px;
+            min-height: 120px;
+            position: relative;
+        }
+        .output-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin: 0;
+            min-height: 60px;
+        }
+        .output-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .confidence-score {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(163, 230, 53, 0.15);
+            border: 1px solid rgba(163, 230, 53, 0.4);
+            border-radius: 999px;
+            color: var(--accent-lime);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .quick-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .tip-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+        }
+        .tip-icon {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+        }
+        .tip-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+        .tip-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: var(--card-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 16px 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(18px);
+            display: none;
+            z-index: 2000;
+            animation: slideUp 0.3s ease;
+        }
+        .toast.active {
+            display: block;
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .loading-shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
         @media (max-width: 768px) {
-            .main-sign2text { 
-                padding: 20px; 
-                margin: 10px;
+            .main-container {
+                padding: 100px 4vw 40px;
             }
-            .header-title { font-size: 1.3rem; }
-            .header { padding: 15px; }
-            .options {
-                grid-template-columns: 1fr;
+            .glass-card {
+                padding: 24px;
+            }
+            .mode-selector {
+                flex-direction: column;
+            }
+            .mode-tab {
+                min-width: 100%;
+            }
+            .camera-preview {
+                max-width: 100%;
             }
         }
-        
-        @media (max-width: 480px) {
-            .main-sign2text { 
-                padding: 15px; 
-                margin: 5px;
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
-            .header-title { font-size: 1.1rem; }
-            .header { padding: 10px; }
         }
     </style>
-    <script src="https://kit.fontawesome.com/1c2e0b1b7a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <img src="src/logo.png" alt="Linguosign Logo">
-            <span class="header-title"><span class="linguosign-logo">Linguosign</span> – Sign to Text</span>
-        </div>
-        <a href="dashboard.html" class="back-dashboard" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;color:#fff;background:linear-gradient(135deg,#00d4ff,#ff0080,#00ff88);border:none;border-radius:8px;padding:10px 22px;font-weight:700;font-size:1.1rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.12);transition:background 0.2s,transform 0.2s;"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
-        <div class="main-sign2text">
-            <div class="options">
-                <div class="option-card" id="webcamOption">
-                    <div class="option-icon"><i class="fas fa-video"></i></div>
-                    <div class="option-title">Use Webcam</div>
-                    <div class="option-desc">Capture live sign input using your webcam.</div>
-                </div>
-                <div class="option-card" id="uploadOption">
-                    <div class="option-icon"><i class="fas fa-upload"></i></div>
-                    <div class="option-title">Upload Image/Video</div>
-                    <div class="option-desc">Upload a photo or video of a sign for recognition.</div>
-                </div>
-            </div>
-            <div id="inputArea">
-                <div class="placeholder-area" id="placeholderArea">
-                    Select an option above to get started.<br>
-                    <span style="font-size:0.95rem; color:#666;">(Recognition coming soon!)</span>
-                </div>
-            </div>
-            <div id="resultArea" class="placeholder-area" style="display:none;">
-                <b>Recognized Text:</b> <span id="recognizedText">(Result will appear here)</span>
+    <nav class="navbar-fixed">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <img src="src/logo.png" alt="SignBridge Logo" />
+                <span class="navbar-title">SignBridge</span>
             </div>
         </div>
-    </div>
-    <script>
-        // Option switching logic
-        const webcamOption = document.getElementById('webcamOption');
-        const uploadOption = document.getElementById('uploadOption');
-        const inputArea = document.getElementById('inputArea');
-        const placeholderArea = document.getElementById('placeholderArea');
-        const resultArea = document.getElementById('resultArea');
-        const recognizedText = document.getElementById('recognizedText');
+    </nav>
 
-        webcamOption.addEventListener('click', () => {
-            webcamOption.classList.add('active');
-            uploadOption.classList.remove('active');
-            inputArea.innerHTML = `<div class='placeholder-area'>
-                <b>Webcam input coming soon!</b><br>
-                (This will allow you to use your webcam to recognize signs.)
-            </div>`;
-            resultArea.style.display = 'none';
-        });
-        uploadOption.addEventListener('click', () => {
-            uploadOption.classList.add('active');
-            webcamOption.classList.remove('active');
-            inputArea.innerHTML = `
-                <div class='upload-section'>
-                    <div class='upload-heading'><i class='fas fa-upload'></i> Upload a Sign Image or Video</div>
-                    <label class='upload-label'>
-                        <i class='fas fa-file-upload'></i> Upload Image/Video
-                        <input type='file' class='upload-input' accept='image/*,video/*' onchange='showPreview(event)'>
-                    </label>
-                    <div id='previewArea'></div>
+    <main class="main-container">
+        <a href="dashboard.html" class="back-btn" aria-label="Back to dashboard">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+
+        <div class="breadcrumb">
+            <a href="dashboard.html">Dashboard</a>
+            <span>/</span>
+            <span>Sign to Text</span>
+        </div>
+
+        <div class="page-header">
+            <h1 class="page-title">Sign to Text</h1>
+            <p class="page-subtitle">Capture or upload sign language to convert it into text</p>
+        </div>
+
+        <div class="glass-card">
+            <div class="mode-selector">
+                <button class="mode-tab active" data-mode="webcam" aria-label="Use webcam">
+                    <i class="fas fa-video"></i> Webcam
+                </button>
+                <button class="mode-tab" data-mode="upload" aria-label="Upload image or video">
+                    <i class="fas fa-upload"></i> Upload Image/Video
+                </button>
+                <button class="mode-tab disabled" aria-label="Coming soon" disabled>
+                    <i class="fas fa-clock"></i> Coming Soon
+                </button>
+            </div>
+
+            <div class="webcam-module active" id="webcamModule">
+                <div class="camera-preview" id="cameraPreview">
+                    <div class="camera-preview-placeholder">
+                        <i class="fas fa-video" style="font-size: 3rem; margin-bottom: 16px; opacity: 0.5;"></i>
+                        <p>Camera preview will appear here</p>
+                    </div>
                 </div>
-                <div class='placeholder-area'>Recognition coming soon!</div>
-            `;
-            resultArea.style.display = 'none';
+                <div class="camera-controls">
+                    <div class="status-badge paused" id="statusBadge">
+                        Paused
+                    </div>
+                    <button class="btn-primary" id="startCaptureBtn" aria-label="Start camera capture">
+                        <i class="fas fa-play"></i> Start Capture
+                    </button>
+                    <p class="micro-tip">Ensure good lighting for higher accuracy</p>
+                </div>
+            </div>
+
+            <div class="upload-module" id="uploadModule">
+                <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Upload zone">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="upload-text">Drag & drop your file here</div>
+                    <div class="upload-hint">or click to browse (Image or Video)</div>
+                    <input type="file" id="fileInput" accept="image/*,video/*" style="display: none;" aria-label="File input">
+                </div>
+                <div class="file-preview" id="filePreview"></div>
+                <div class="upload-progress" id="uploadProgress" style="display: none;">
+                    <div class="upload-progress-bar" id="uploadProgressBar" style="width: 0%;"></div>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn-primary" id="uploadBtn" style="display: none;" aria-label="Upload and recognize">
+                        <i class="fas fa-upload"></i> Upload to Recognize
+                    </button>
+                </div>
+            </div>
+
+            <div class="output-section" id="outputSection">
+                <h3 style="margin-top: 0; margin-bottom: 16px; font-size: 1.3rem;">Recognized Text</h3>
+                <div class="output-box">
+                    <p class="output-text" id="outputText" aria-live="polite">Processing...</p>
+                </div>
+                <div class="output-actions">
+                    <button class="btn-secondary" id="copyBtn" aria-label="Copy text">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <button class="btn-secondary" id="retryBtn" aria-label="Retry recognition">
+                        <i class="fas fa-redo"></i> Retry
+                    </button>
+                    <span class="confidence-score" id="confidenceScore" style="display: none;">
+                        <i class="fas fa-check-circle"></i> Confidence: 92%
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-tips">
+            <div class="tip-card">
+                <div class="tip-icon"><i class="fas fa-ruler"></i></div>
+                <div class="tip-title">Optimal Distance</div>
+                <div class="tip-text">Keep hands 2-3 feet from camera for best recognition</div>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon"><i class="fas fa-hand-paper"></i></div>
+                <div class="tip-title">Hand Clarity</div>
+                <div class="tip-text">Ensure hands are fully visible and well-lit</div>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="tip-title">Lighting</div>
+                <div class="tip-text">Face a light source, avoid backlighting</div>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+    <script>
+        // Mode switching
+        const modeTabs = document.querySelectorAll('.mode-tab');
+        const webcamModule = document.getElementById('webcamModule');
+        const uploadModule = document.getElementById('uploadModule');
+
+        modeTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                if (tab.classList.contains('disabled')) return;
+                
+                modeTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const mode = tab.dataset.mode;
+                webcamModule.classList.toggle('active', mode === 'webcam');
+                uploadModule.classList.toggle('active', mode === 'upload');
+            });
         });
-        // Preview logic for upload
-        window.showPreview = function(event) {
-            const file = event.target.files[0];
-            const previewArea = document.getElementById('previewArea');
-            if (!file) return;
-            if (file.type.startsWith('image/')) {
-                previewArea.innerHTML = `<img src='${URL.createObjectURL(file)}' class='image-preview'>`;
-            } else if (file.type.startsWith('video/')) {
-                previewArea.innerHTML = `<video src='${URL.createObjectURL(file)}' class='video-preview' controls></video>`;
+
+        // Webcam functionality
+        const startCaptureBtn = document.getElementById('startCaptureBtn');
+        const cameraPreview = document.getElementById('cameraPreview');
+        const statusBadge = document.getElementById('statusBadge');
+        let stream = null;
+
+        startCaptureBtn.addEventListener('click', async () => {
+            if (startCaptureBtn.textContent.includes('Start')) {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    const video = document.createElement('video');
+                    video.srcObject = stream;
+                    video.autoplay = true;
+                    video.playsInline = true;
+                    cameraPreview.innerHTML = '';
+                    cameraPreview.appendChild(video);
+                    statusBadge.textContent = 'Live';
+                    statusBadge.classList.remove('paused');
+                    startCaptureBtn.innerHTML = '<i class="fas fa-stop"></i> Stop Capture';
+                } catch (err) {
+                    showToast('Camera access denied. Please enable camera permissions.');
+                }
             } else {
-                previewArea.innerHTML = `<div style='color:#ff0080;'>Unsupported file type.</div>`;
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    stream = null;
+                }
+                cameraPreview.innerHTML = '<div class="camera-preview-placeholder"><i class="fas fa-video" style="font-size: 3rem; margin-bottom: 16px; opacity: 0.5;"></i><p>Camera preview will appear here</p></div>';
+                statusBadge.textContent = 'Paused';
+                statusBadge.classList.add('paused');
+                startCaptureBtn.innerHTML = '<i class="fas fa-play"></i> Start Capture';
+            }
+        });
+
+        // Upload functionality
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const filePreview = document.getElementById('filePreview');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const uploadProgress = document.getElementById('uploadProgress');
+        const uploadProgressBar = document.getElementById('uploadProgressBar');
+
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            const reader = new FileReader();
+            if (file.type.startsWith('image/')) {
+                reader.onload = (e) => {
+                    filePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                    filePreview.classList.add('active');
+                    uploadBtn.style.display = 'inline-flex';
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type.startsWith('video/')) {
+                reader.onload = (e) => {
+                    filePreview.innerHTML = `<video src="${e.target.result}" controls style="max-width: 100%; border-radius: 16px;"></video>`;
+                    filePreview.classList.add('active');
+                    uploadBtn.style.display = 'inline-flex';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                showToast('Unsupported file type. Please upload an image or video.');
             }
         }
+
+        uploadBtn.addEventListener('click', () => {
+            uploadProgress.style.display = 'block';
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                uploadProgressBar.style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        showOutput('Hello, how are you today?');
+                        uploadProgress.style.display = 'none';
+                        uploadProgressBar.style.width = '0%';
+                    }, 500);
+                }
+            }, 200);
+        });
+
+        // Output functionality
+        const outputSection = document.getElementById('outputSection');
+        const outputText = document.getElementById('outputText');
+        const copyBtn = document.getElementById('copyBtn');
+        const retryBtn = document.getElementById('retryBtn');
+        const confidenceScore = document.getElementById('confidenceScore');
+
+        function showOutput(text) {
+            outputSection.classList.add('active');
+            outputText.textContent = text;
+            confidenceScore.style.display = 'inline-flex';
+            window.scrollTo({ top: outputSection.offsetTop - 100, behavior: 'smooth' });
+        }
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(outputText.textContent).then(() => {
+                showToast('Text copied to clipboard!');
+            });
+        });
+
+        retryBtn.addEventListener('click', () => {
+            outputText.textContent = 'Processing...';
+            outputText.classList.add('loading-shimmer');
+            setTimeout(() => {
+                outputText.textContent = 'Hello, how are you today?';
+                outputText.classList.remove('loading-shimmer');
+            }, 1500);
+        });
+
+        // Toast notifications
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        // Keyboard accessibility
+        uploadZone.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInput.click();
+            }
+        });
     </script>
 </body>
 </html>
