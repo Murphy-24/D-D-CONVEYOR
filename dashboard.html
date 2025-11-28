@@ -11,13 +11,31 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
+        :root {
+            --glass-border: rgba(255, 255, 255, 0.22);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.18);
+            --accent-cyan: #7ee9ff;
+            --accent-pink: #ff7ad1;
+            --accent-lime: #b8ffda;
+        }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: #f5f5f5;
+            background: radial-gradient(circle at 15% 20%, rgba(126, 233, 255, 0.2), transparent 40%),
+                        radial-gradient(circle at 80% 0%, rgba(255, 122, 209, 0.25), transparent 45%),
+                        #050610;
+            min-height: 100vh;
+        }
         .navbar-fixed {
             position: fixed;
             top: 0; left: 0; width: 100vw;
-            background: rgba(15, 15, 35, 0.98);
-            box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+            background: rgba(5, 6, 16, 0.55);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+            backdrop-filter: blur(18px);
             z-index: 1000;
-            border-bottom: 1.5px solid rgba(0,212,255,0.08);
         }
         .navbar-content {
             max-width: 1400px;
@@ -49,26 +67,28 @@
             gap: 24px;
         }
         .navbar-link {
-            color: #a0a0a0;
+            color: rgba(255,255,255,0.7);
             font-weight: 600;
             text-decoration: none;
             padding: 8px 18px;
-            border-radius: 8px;
-            transition: background 0.2s, color 0.2s;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            transition: background 0.2s, color 0.2s, border 0.2s;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .navbar-link.active, .navbar-link:hover {
-            color: #00d4ff;
-            background: rgba(0,212,255,0.08);
+            color: #fff;
+            border-color: rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.12);
         }
         .navbar-link.logout {
-            color: #ff6b35;
+            color: var(--accent-pink);
         }
         .navbar-link.logout:hover {
-            color: #ff0080;
-            background: rgba(255,0,128,0.08);
+            color: var(--accent-cyan);
+            background: rgba(255,255,255,0.12);
         }
         .dashboard-main {
             max-width: 1400px;
@@ -82,56 +102,60 @@
             .dashboard-main { grid-template-columns: 1fr; padding-top: 100px; }
         }
         .dashboard-card {
-            background: rgba(15, 15, 35, 0.88);
+            background: rgba(5, 6, 16, 0.55);
             border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+            backdrop-filter: blur(24px);
             padding: 40px 32px 32px 32px;
             position: relative;
             margin-bottom: 0;
             transition: box-shadow 0.2s, transform 0.2s;
         }
         .dashboard-card:hover {
-            box-shadow: 0 16px 48px rgba(0,212,255,0.18);
+            box-shadow: 0 35px 80px rgba(0,0,0,0.45);
             transform: translateY(-4px) scale(1.02);
         }
         .dashboard-card h2 {
             font-size: 2rem;
             font-weight: 800;
             margin-bottom: 12px;
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink), var(--accent-lime));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .dashboard-card p {
-            color: #a0a0a0;
+            color: rgba(255,255,255,0.75);
             font-size: 1.1rem;
             margin-bottom: 18px;
         }
         .dashboard-actions {
             display: flex;
+            flex-wrap: wrap;
             gap: 18px;
             margin-top: 18px;
         }
         .dashboard-action-btn {
-            background: linear-gradient(135deg, #00d4ff, #ff0080, #00ff88);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            padding: 14px 32px;
+            color: #fdfdfd;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 999px;
+            padding: 14px 30px;
             font-size: 1.1rem;
             font-weight: 700;
-            box-shadow: 0 4px 16px rgba(0,212,255,0.12);
-            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.25);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border 0.2s;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .dashboard-action-btn:hover {
-            background: linear-gradient(135deg, #ff0080, #00d4ff, #00ff88);
-            transform: scale(1.08) rotateY(8deg);
-            box-shadow: 0 8px 32px rgba(0,212,255,0.22);
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.5);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.35);
         }
         .dashboard-quick {
             display: grid;
@@ -140,9 +164,11 @@
             margin-top: 24px;
         }
         .dashboard-quick-card {
-            background: rgba(20, 20, 40, 0.92);
+            background: rgba(5, 6, 16, 0.45);
             border-radius: 18px;
-            box-shadow: 0 4px 16px rgba(0,212,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 20px 40px rgba(0,0,0,0.25);
+            backdrop-filter: blur(18px);
             padding: 24px 18px;
             display: flex;
             flex-direction: column;
@@ -152,12 +178,12 @@
             position: relative;
         }
         .dashboard-quick-card:hover {
-            box-shadow: 0 12px 32px rgba(0,212,255,0.18);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 25px 55px rgba(0,0,0,0.35);
             transform: translateY(-4px) scale(1.03);
         }
         .dashboard-quick-card .quick-icon {
             font-size: 1.6rem;
-            color: #00d4ff;
+            color: var(--accent-cyan);
             margin-bottom: 6px;
         }
         .dashboard-quick-card .quick-title {
@@ -171,26 +197,29 @@
             margin-top: 8px;
         }
         .dashboard-quick-card .quick-action {
-            background: none;
-            border: none;
-            color: #00d4ff;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid transparent;
+            color: var(--accent-lime);
             font-size: 1.1rem;
             cursor: pointer;
             padding: 4px 8px;
             border-radius: 6px;
-            transition: background 0.2s, color 0.2s;
+            transition: background 0.2s, color 0.2s, border 0.2s;
         }
         .dashboard-quick-card .quick-action:hover {
-            background: rgba(0,212,255,0.08);
-            color: #ff0080;
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.4);
+            color: var(--accent-pink);
         }
         .dashboard-chart {
             width: 100%;
             max-width: 420px;
             margin: 0 auto 24px auto;
-            background: rgba(0,0,0,0.08);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.12);
             border-radius: 18px;
             padding: 18px 12px 12px 12px;
+            backdrop-filter: blur(14px);
         }
         .dashboard-lottie {
             width: 80px; height: 80px; margin: 0 auto 18px auto;
@@ -281,12 +310,12 @@
             datasets: [{
                 data: [24, 156, 89],
                 backgroundColor: [
-                    'rgba(0,212,255,0.8)',
-                    'rgba(255,0,128,0.8)',
-                    'rgba(0,255,136,0.8)'
+                    'rgba(126,233,255,0.85)',
+                    'rgba(255,122,209,0.85)',
+                    'rgba(184,255,218,0.85)'
                 ],
                 borderWidth: 2,
-                borderColor: '#181830',
+                borderColor: 'rgba(255,255,255,0.2)',
                 hoverOffset: 12
             }]
         },
